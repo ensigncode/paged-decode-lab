@@ -1,4 +1,15 @@
-# Benchmark protocol
+# Benchmark protocols
+
+Version 0.2 uses `benchmarks/bench_competitive.py` (schema 2): same-paged-layout
+FlashInfer, observed SDPA dispatch, forced-backend support results, and separate
+eager and CUDA graph measurements. See [hardening methodology](HARDENING.md) and
+[current evidence](../results/2026-10-31-hardening/SUMMARY.md).
+
+The remainder of this document describes the historical version 0.1
+`bench_decode.py` protocol (schema 1). Its backend-identification and graph-timing
+limitations apply to those historical reports.
+
+# Historical schema 1 protocol
 
 The [Tesla T4 evidence](../results/2026-10-31-t4/SUMMARY.md) contains 36 matrix
 points and six supplemental gather-inclusive points, each gated on correctness.
