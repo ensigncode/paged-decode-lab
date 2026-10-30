@@ -1,5 +1,3 @@
-> **Engineering candidate:** new merge and benchmark work is undergoing GPU validation. The historical T4 evidence below covers the previous validated implementation; it does not validate this candidate.
-
 # Paged Decode Lab
 
 **Ensigncode Software · CUDA kernels, inference workloads, and benchmark methodology**
@@ -9,19 +7,29 @@ the single-token decode step of an LLM. It follows fragmented KV pages directly,
 keeps an online softmax in registers, and merges independent context partitions
 without materializing an attention-score tensor.
 
-**Validated on a real NVIDIA Tesla T4; experimental operator study.** All **57 tests
-passed** with CUDA execution. NVIDIA memory and synchronization checks reported
-zero errors; race checking reported zero errors and warnings. The repository includes
-**42 measured benchmark reports**, raw timing samples, environment details, and a
-source-hash audit. See [validation](docs/VALIDATION.md) and the
-[complete measured results](results/2026-10-31-t4/SUMMARY.md).
+**Version 0.2 validated on a real NVIDIA Tesla T4; experimental operator study.**
+All **125 tests passed**: 39 CPU/reference checks, 83 custom CUDA tests, and
+3 external-library comparisons. Each of NVIDIA memcheck, racecheck, synccheck,
+and initcheck ran all 83 custom CUDA tests with zero reported errors; racecheck
+also reported zero warnings.
 
-One measured configuration: batch 4, maximum context 4096, FP16, Hq/Hkv=32/8,
-D=128, page size 16, split size 256. Median device times were **0.518 ms** for the
-custom paged path and **1.122 ms** for PyTorch automatic SDPA on pre-gathered,
-head-expanded dense KV. This is a specific operator/layout comparison, not an
-end-to-end LLM or production serving-engine speedup. The full matrix includes
-regressions at other split sizes.
+The new **10-case competitive matrix** covers MHA, GQA, MQA, batches 1/4,
+contexts up to 16K, and separate eager/CUDA-graph measurements. FlashInfer uses
+the same paged KV tensors. PyTorch profiler identified automatic SDPA as the
+efficient backend. Forced unsupported backends are recorded explicitly.
+See the [current results and raw evidence](results/2026-10-31-hardening/SUMMARY.md)
+and [reproduction details](docs/HARDENING.md).
+
+**Measured outcome:** FlashInfer CUDA-core decode was **1.22–2.88× faster** than
+our serial custom kernel in these eager measurements. The optional shared merge
+had mixed results; the default remains serial. Custom output is FP32, while
+FlashInfer output is FP16. This portfolio demonstrates CUDA implementation,
+numerical testing, and honest experimental analysis; it makes no performance
+leadership or production-serving claim.
+
+The [historical 42-case split-size sweep](results/2026-10-31-t4/SUMMARY.md)
+is retained with its [version 0.1 validation record](docs/VALIDATION.md).
+Its dense-reference speedups do not establish an advantage over a tuned paged engine.
 
 ## Why this problem
 
@@ -43,17 +51,17 @@ generate text. It provides a concrete problem to inspect, measure, and optimize.
 | Cache | `[physical_page, token, kv_head, dimension]` plus logical page table |
 | Parallelism | Four warp states per CTA; multiple CTAs per query head |
 | Numerics | Online maximum/denominator; FP32 accumulation and output |
-| Merge | Max-corrected partial numerator and denominator reduction |
+| Merge | Max-corrected reduction; serial default, optional bounded shared-weight merge |
 | Inputs | FP16/FP32; head dimensions 64/128; page sizes 16/32 |
 | Edge cases | Ragged lengths, empty contexts, partial and shared pages |
 | Replay | Preallocated workspace; caller's current CUDA stream |
-| References | Independent FP64 NumPy oracle; PyTorch eager and automatic SDPA |
+| References | Independent FP64 NumPy oracle; PyTorch eager/identified SDPA; same-layout FlashInfer |
 | Benchmark | Correctness gate, raw samples, device/wall timings, environment metadata |
 
 This version uses scalar FMA and warp shuffles. It has no Tensor Cores, async
 copies, quantized KV, or inter-head KV reuse. GQA heads sharing one KV head still
-issue separate reads. It may be slower than tuned serving kernels. Publish that
-result if observed; optimization claims require evidence.
+issue separate reads. The measured FlashInfer gap is published above. Further optimization needs
+profiling and new measurements.
 
 ## Setup
 
@@ -71,7 +79,7 @@ CUDA toolkit containing `nvcc`, and a compatible CUDA-enabled PyTorch installati
 Install PyTorch according to its official instructions for your driver/toolkit.
 A CUDA-enabled wheel alone does not supply the full extension compiler toolchain.
 GPU validation used PyTorch 2.11.0+cu130, CUDA 13.0.88, driver 580.82.07,
-and Python 3.13.16 on a Tesla T4. A separate GPU-less build check passed with
+and Python 3.13.16 on a Tesla T4. A separate historical version 0.1 GPU-less build check passed with
 PyTorch 2.6.0+cu124 and CUDA 12.4.131 for sm_75 and sm_80 code generation;
 that second check does not establish execution on another GPU.
 
