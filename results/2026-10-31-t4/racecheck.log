@@ -1,0 +1,4 @@
+========= COMPUTE-SANITIZER
+.                                                                        [100%]
+1 passed, 27 deselected in 2.40s
+========= RACECHECK SUMMARY: 0 hazards displayed (0 errors, 0 warnings)

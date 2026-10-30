@@ -1,0 +1,6 @@
+Saved /content/ensigncode-paged-decode/evidence/gather-b4-l4096-s256.json; all correctness gates passed
+cuda_split                     0.54528 ms median
+cuda_single_partition          1.39614 ms median
+torch_eager_dense              5.84653 ms median
+torch_sdpa_auto_dense          1.14739 ms median
+torch_gather_expand_eager      10.09323 ms median

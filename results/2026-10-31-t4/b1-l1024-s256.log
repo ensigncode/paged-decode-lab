@@ -1,0 +1,5 @@
+Saved /content/ensigncode-paged-decode/evidence/b1-l1024-s256.json; all correctness gates passed
+cuda_split                     0.08986 ms median
+cuda_single_partition          0.25513 ms median
+torch_eager_dense              0.39956 ms median
+torch_sdpa_auto_dense          0.10770 ms median

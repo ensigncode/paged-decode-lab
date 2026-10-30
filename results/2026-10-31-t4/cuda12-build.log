@@ -1,0 +1,15 @@
+No CUDA runtime is found, using CUDA_HOME='/tmp/paged-cuda-toolkit'
+{
+  "schema_version": 1,
+  "kind": "cuda_extension_build",
+  "status": "passed",
+  "python": "3.12.14",
+  "torch": "2.6.0+cu124",
+  "torch_cuda_build": "12.4",
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2024 NVIDIA Corporation\nBuilt on Thu_Mar_28_02:18:24_PDT_2024\nCuda compilation tools, release 12.4, V12.4.131\nBuild cuda_12.4.r12.4/compiler.34097967_0\n",
+  "architectures": "7.5;8.0",
+  "extension_file": "ensigncode_paged_decode_v1.so",
+  "gpu_available": false,
+  "scope": "CUDA/C++ compilation, device code generation, linking and module import only",
+  "gpu_execution_validated": false
+}

@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-30T19:01:09.807476+00:00",
+  "package_version": "0.1.0",
+  "revision": {
+    "sha": "b120cb28f879a8a215a2626399aa89454e51fda8",
+    "dirty": true
+  },
+  "configuration": {
+    "batch": 1,
+    "heads": 32,
+    "kv_heads": 8,
+    "dim": 128,
+    "context": 4096,
+    "page_size": 16,
+    "split_tokens": 256,
+    "dtype": "float16",
+    "device": "cuda:0",
+    "seed": 123,
+    "repetitions": 30,
+    "inner": 20,
+    "warmup": 10,
+    "uniform": false,
+    "include_gather": false,
+    "output": "/content/ensigncode-paged-decode/evidence/b1-l4096-s256.json"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "torch_cuda_build": "13.0",
+    "gpu": "Tesla T4",
+    "compute_capability": [
+      7,
+      5
+    ],
+    "gpu_memory_bytes": 15637086208,
+    "cuda_visible_devices": null,
+    "nvidia_smi_before": "0, Tesla T4, 580.82.07, 53, 37.14 W, 675 MHz, 5000 MHz",
+    "nvidia_smi_after": "0, Tesla T4, 580.82.07, 56, 75.44 W, 1470 MHz, 5000 MHz"
+  },
+  "workload": {
+    "lengths": [
+      4096
+    ],
+    "physical_pages": 256,
+    "cache_bytes": 16777216,
+    "expanded_dense_kv_bytes": 67108864,
+    "split_workspace_bytes": 1064960,
+    "single_workspace_bytes": 66560,
+    "steady_state_memory": {
+      "allocated_bytes": 110395392,
+      "reserved_bytes": 201326592
+    }
+  },
+  "correctness": {
+    "cuda_split": {
+      "max_abs_vs_fp32_eager": 5.21540641784668e-08,
+      "atol": 0.003,
+      "rtol": 0.003
+    },
+    "cuda_single_partition": {
+      "max_abs_vs_fp32_eager": 9.313225746154785e-08,
+      "atol": 0.003,
+      "rtol": 0.003
+    },
+    "torch_eager_dense": {
+      "max_abs_vs_fp32_eager": 0.0,
+      "atol": 0.003,
+      "rtol": 0.003
+    },
+    "torch_sdpa_auto_dense": {
+      "max_abs_vs_fp32_eager": 3.301352262496948e-05,
+      "atol": 0.003,
+      "rtol": 0.003
+    }
+  },
+  "measurement": {
+    "timing": "CUDA events and synchronized wall clock",
+    "sample_unit": "mean per replay within one repetition; p95 is NOT request-tail latency",
+    "scope": "static attention decode operator; excludes model and serving scheduler",
+    "sdpa_backend": "automatic, not identified; no FlashAttention claim",
+    "dense_baselines": "pre-gathered, GQA-expanded KV; excludes preparation unless named gather",
+    "sequence_tokens_per_second": "batch / operator latency; NOT full-model generation throughput",
+    "inner_replays": 20,
+    "warmup_replays": 10,
+    "trial_order": [
+      [
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition",
+        "cuda_split"
+      ],
+      [
+        "torch_eager_dense",
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "cuda_split"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_sdpa_auto_dense",
+        "cuda_split",
+        "torch_eager_dense"
+      ],
+      [
+        "cuda_split",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense",
+        "cuda_split",
+        "cuda_single_partition"
+      ],
+      [
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "cuda_split",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "torch_sdpa_auto_dense",
+        "cuda_split"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "cuda_split",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense",
+        "cuda_split"
+      ],
+      [
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_split",
+        "cuda_single_partition"
+      ],
+      [
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense"
+      ],
+      [
+        "cuda_split",
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition",
+        "torch_eager_dense"
+      ],
+      [
+        "cuda_split",
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense",
+        "cuda_single_partition"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "cuda_split"
+      ],
+      [
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_single_partition",
+        "cuda_split",
+        "torch_sdpa_auto_dense",
+        "torch_eager_dense"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "cuda_split",
+        "torch_eager_dense",
+        "cuda_single_partition"
+      ],
+      [
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_split",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition"
+      ],
+      [
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "cuda_split",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_split"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition",
+        "cuda_split",
+        "torch_eager_dense"
+      ],
+      [
+        "torch_eager_dense",
+        "cuda_split",
+        "torch_sdpa_auto_dense",
+        "cuda_single_partition"
+      ],
+      [
+        "torch_sdpa_auto_dense",
+        "cuda_split",
+        "cuda_single_partition",
+        "torch_eager_dense"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "cuda_split",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_split",
+        "torch_eager_dense",
+        "cuda_single_partition",
+        "torch_sdpa_auto_dense"
+      ],
+      [
+        "cuda_single_partition",
+        "torch_eager_dense",
+        "torch_sdpa_auto_dense",
+        "cuda_split"
+      ]
+    ]
+  },
+  "results": {
+    "cuda_split": {
+      "summary": {
+        "sample_count": 30,
+        "device_ms_p50": 0.1811471998691559,
+        "device_ms_p95": 0.2693193608522411,
+        "device_ms_min": 0.17135519981384278,
+        "wall_ms_p50": 0.18290977500328154,
+        "decode_steps_per_second": 5520.372386226826,
+        "sequence_tokens_per_second": 5520.372386226826
+      },
+      "raw": {
+        "device_ms": [
+          0.32870399951934814,
+          0.32848320007324217,
+          0.18135520219802856,
+          0.17135519981384278,
+          0.18416800498962402,
+          0.17971199750900269,
+          0.17829279899597167,
+          0.17612799406051635,
+          0.1729423999786377,
+          0.18416160345077515,
+          0.1970080018043518,
+          0.19218239784240723,
+          0.18842240571975707,
+          0.18112000226974487,
+          0.18165760040283202,
+          0.17655359506607055,
+          0.17568960189819335,
+          0.17938719987869262,
+          0.18724160194396972,
+          0.1901855945587158,
+          0.178713595867157,
+          0.1784832000732422,
+          0.17479519844055175,
+          0.18429440259933472,
+          0.18995200395584105,
+          0.19097599983215333,
+          0.18083839416503905,
+          0.1811743974685669,
+          0.18086719512939453,
+          0.17952159643173218
+        ],
+        "wall_ms": [
+          0.33056270000315635,
+          0.33089960000438623,
+          0.18344144999673517,
+          0.17271494999704373,
+          0.18600054999637905,
+          0.18163834999995743,
+          0.18016375000229345,
+          0.17751660000158154,
+          0.1748821499973019,
+          0.1859264500012614,
+          0.19829514999969433,
+          0.19519255000091107,
+          0.1901502500004426,
+          0.18301570000289757,
+          0.18373965000364478,
+          0.17859129999919787,
+          0.17691020000256685,
+          0.1811063499985721,
+          0.18855689999668357,
+          0.1920777000009366,
+          0.18041060000086873,
+          0.1799908000009509,
+          0.1763632500001222,
+          0.1856574499981889,
+          0.19152819999703752,
+          0.19277485000088745,
+          0.18225040000174886,
+          0.1828038500036655,
+          0.1820824000049015,
+          0.18093460000159212
+        ]
+      }
+    },
+    "cuda_single_partition": {
+      "summary": {
+        "sample_count": 30,
+        "device_ms_p50": 1.1227215766906737,
+        "device_ms_p95": 1.6327864503860452,
+        "device_ms_min": 1.062831974029541,
+        "wall_ms_p50": 1.1250025999970603,
+        "decode_steps_per_second": 890.6927779437472,
+        "sequence_tokens_per_second": 890.6927779437472
+      },
+      "raw": {
+        "device_ms": [
+          1.9834896087646485,
+          1.983211135864258,
+          1.1736031532287599,
+          1.0785264015197753,
+          1.2024352073669433,
+          1.145903968811035,
+          1.084224033355713,
+          1.1252400398254394,
+          1.0650624275207519,
+          1.1082367897033691,
+          1.1866111755371094,
+          1.1240863800048828,
+          1.1426639556884766,
+          1.1213567733764649,
+          1.1859392166137694,
+          1.1197088241577149,
+          1.071121597290039,
+          1.0976287841796875,
+          1.1791919708251952,
+          1.0967439651489257,
+          1.2044896125793456,
+          1.0920960426330566,
+          1.062831974029541,
+          1.1151599884033203,
+          1.1494192123413085,
+          1.1666048049926758,
+          1.0728447914123536,
+          1.1000448226928712,
+          1.2023807525634767,
+          1.084992027282715
+        ],
+        "wall_ms": [
+          1.9854209000015999,
+          1.9847261499990054,
+          1.1756537499991282,
+          1.0803702500027157,
+          1.2042545999975118,
+          1.147776399994882,
+          1.0865580500023952,
+          1.1272615999985192,
+          1.0667368999975224,
+          1.1099215500053106,
+          1.1879493000037655,
+          1.1256142499973976,
+          1.1452921499994773,
+          1.124390949996723,
+          1.1883635999993203,
+          1.1219256499998664,
+          1.0729522000019642,
+          1.0995924499979992,
+          1.1812936500007254,
+          1.0984365000012986,
+          1.206210700001975,
+          1.0941248499989342,
+          1.0653921500022534,
+          1.1177146500017443,
+          1.1512091999975382,
+          1.168337749999182,
+          1.0749195499954567,
+          1.101852750002763,
+          1.2044245500021589,
+          1.0866419000024052
+        ]
+      }
+    },
+    "torch_eager_dense": {
+      "summary": {
+        "sample_count": 30,
+        "device_ms_p50": 1.5127039909362794,
+        "device_ms_p95": 1.734622182846069,
+        "device_ms_min": 1.5097807884216308,
+        "wall_ms_p50": 1.5146698749987308,
+        "decode_steps_per_second": 661.0678665434443,
+        "sequence_tokens_per_second": 661.0678665434443
+      },
+      "raw": {
+        "device_ms": [
+          1.7724416732788086,
+          1.7968000411987304,
+          1.6883983612060547,
+          1.5137776374816894,
+          1.5106335639953614,
+          1.5122431755065917,
+          1.5132415771484375,
+          1.5118127822875977,
+          1.5136816024780273,
+          1.512326431274414,
+          1.5107423782348632,
+          1.5129615783691406,
+          1.5127408027648925,
+          1.5137904167175293,
+          1.511563205718994,
+          1.5137632369995118,
+          1.5153152465820312,
+          1.512611198425293,
+          1.5105024337768556,
+          1.515012836456299,
+          1.511731243133545,
+          1.5129599571228027,
+          1.5152128219604493,
+          1.5134592056274414,
+          1.5116208076477051,
+          1.5117695808410645,
+          1.5125311851501464,
+          1.512667179107666,
+          1.5097807884216308,
+          1.5116512298583984
+        ],
+        "wall_ms": [
+          1.777188500000193,
+          1.798475900000085,
+          1.6902944000037223,
+          1.51575145000038,
+          1.5119300499975452,
+          1.514291449996108,
+          1.5159124499973586,
+          1.5140441999960785,
+          1.5155763999985084,
+          1.5140768999970078,
+          1.5121360500018,
+          1.514830050001592,
+          1.5148236000015913,
+          1.5159023000023808,
+          1.5135518500017042,
+          1.5156446499986487,
+          1.5175571500037677,
+          1.5145161499958704,
+          1.5119978500024445,
+          1.517013450001059,
+          1.5131024500021795,
+          1.5148414000009325,
+          1.5178864999995767,
+          1.515715199997203,
+          1.5129919499997868,
+          1.5137105999997402,
+          1.5142475499999364,
+          1.5144557499979783,
+          1.5112548000047354,
+          1.5134681999995792
+        ]
+      }
+    },
+    "torch_sdpa_auto_dense": {
+      "summary": {
+        "sample_count": 30,
+        "device_ms_p50": 0.3330655932426453,
+        "device_ms_p95": 0.6165501737594604,
+        "device_ms_min": 0.31735360622406006,
+        "wall_ms_p50": 0.33498367500044424,
+        "decode_steps_per_second": 3002.411597860482,
+        "sequence_tokens_per_second": 3002.411597860482
+      },
+      "raw": {
+        "device_ms": [
+          0.6175903797149658,
+          0.6168288230895996,
+          0.616209602355957,
+          0.31957919597625734,
+          0.3630143880844116,
+          0.3395600080490112,
+          0.3203488111495972,
+          0.33494720458984373,
+          0.3318048000335693,
+          0.32829439640045166,
+          0.3542304039001465,
+          0.32240478992462157,
+          0.32497439384460447,
+          0.33444321155548096,
+          0.3309760093688965,
+          0.3318079948425293,
+          0.33454079627990724,
+          0.32735679149627683,
+          0.33812479972839354,
+          0.3228559970855713,
+          0.3593103885650635,
+          0.32291998863220217,
+          0.3267584085464478,
+          0.32580320835113524,
+          0.33432319164276125,
+          0.3479552030563354,
+          0.340233588218689,
+          0.32969279289245607,
+          0.34539520740509033,
+          0.31735360622406006
+        ],
+        "wall_ms": [
+          0.6199864499990326,
+          0.6187626500036458,
+          0.6180868000001283,
+          0.3215045999979793,
+          0.3649300500001118,
+          0.3413565999949242,
+          0.3219784999998865,
+          0.33684285000390446,
+          0.33333064999965245,
+          0.33017570000311025,
+          0.35612330000276415,
+          0.3244710999979361,
+          0.32630764999908024,
+          0.3358322999986285,
+          0.332297599999265,
+          0.33413505000225996,
+          0.3369262000035178,
+          0.32859099999882346,
+          0.3401231999987431,
+          0.3249262999986513,
+          0.36121985000363566,
+          0.3240203499956351,
+          0.32883085000321444,
+          0.3277445999970041,
+          0.33597114999679434,
+          0.34915305000140506,
+          0.34202950000121746,
+          0.33079910000424206,
+          0.34712814999693364,
+          0.31902255000204605
+        ]
+      }
+    }
+  }
+}
