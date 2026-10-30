@@ -4,6 +4,7 @@ All calculations use float64 so the oracle can expose FP32 accumulation errors.
 The CPU streaming implementation also exercises the split-softmax merge algebra.
 """
 from dataclasses import dataclass
+from numbers import Integral
 import numpy as np
 
 
@@ -17,6 +18,9 @@ class Layout:
     physical_pages: int
 
     def __post_init__(self):
+        if any(isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral)
+               for value in vars(self).values()):
+            raise TypeError("layout dimensions must be integers, not booleans")
         if min(vars(self).values()) <= 0:
             raise ValueError("layout dimensions must be positive")
         if self.query_heads % self.kv_heads:

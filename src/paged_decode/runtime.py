@@ -12,7 +12,7 @@ def load_extension():
     from torch.utils.cpp_extension import load
     source = Path(__file__).parent / "csrc"
     return load(
-        name="ensigncode_paged_decode_v1",
+        name="ensigncode_paged_decode_v2",
         sources=[str(source / "bindings.cpp"), str(source / "decode.cu")],
         extra_cflags=["-O3"],
         extra_cuda_cflags=["-O3", "-lineinfo", "--ptxas-options=-v"],
@@ -29,14 +29,16 @@ class DecodePlan:
     be used on one stream at a time. Use distinct plans for concurrent streams.
     Device metadata and workspace attributes are internal and must not be edited.
     """
-    def __init__(self, layout: Layout, table, lengths, *, device="cuda", split_tokens=256):
+    def __init__(self, layout: Layout, table, lengths, *, device="cuda", split_tokens=256, merge="serial"):
+        if merge not in ("serial", "shared"):
+            raise ValueError("merge must be 'serial' or 'shared'")
         if layout.head_dim not in (64, 128):
             raise ValueError("head_dim must be 64 or 128")
         if layout.page_size not in (16, 32):
             raise ValueError("page_size must be 16 or 32")
         if layout.batch > 65535 or layout.query_heads > 65535:
             raise ValueError("batch/head count exceeds CUDA grid limits")
-        if not isinstance(split_tokens, int) or not 1 <= split_tokens <= 1048576:
+        if isinstance(split_tokens, bool) or not isinstance(split_tokens, int) or not 1 <= split_tokens <= 1048576:
             raise ValueError("split_tokens must be an integer in [1,1048576]")
         table, lengths = validate_metadata(layout, table, lengths)
         if table.shape[1] > 65536:
@@ -48,6 +50,9 @@ class DecodePlan:
         if self.splits > 65535:
             raise ValueError("too many context splits")
         self.layout, self.split_tokens = layout, split_tokens
+        self.merge = merge
+        self.merge_implementation = ("shared" if self.splits * 4 <= 4096 else "serial_fallback") if merge == "shared" else "serial"
+        self._merge_mode = int(self.merge_implementation == "shared")
         self.device = torch.device(device)
         if self.device.type != "cuda":
             raise ValueError("DecodePlan requires a CUDA device")
@@ -81,5 +86,5 @@ class DecodePlan:
             if tensor.requires_grad:
                 raise ValueError("inference only: detach tensors requiring gradients")
         self._extension.decode(q, k, v, self._table, self._lengths,
-                               self._numerator, self._stats, self._out, self.split_tokens)
+                               self._numerator, self._stats, self._out, self.split_tokens, self._merge_mode)
         return self._out
