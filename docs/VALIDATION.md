@@ -1,44 +1,77 @@
-# Validation record
+# NVIDIA GPU validation record
 
-Prepared 31 October 2026 (India time).
+Completed 31 October 2026 (India time), using a free Google Colab Tesla T4 runtime.
+No paid compute, credits, hardware purchase, or subscription upgrade was used.
 
-| Check | Evidence/status |
+## Executed configuration
+
+| Component | Observed value |
 |---|---|
-| Python source compilation | Passed with Python 3.12 |
-| Independent CPU numerical/metadata/metrics tests | 23 passed |
-| Actual PyTorch baseline vs NumPy integration | 6 passed, CPU PyTorch 2.6.0+cpu |
-| Full available test run | 29 passed; CUDA module skipped because NVIDIA GPU is absent |
-| Benchmark CLI help | Passed |
-| Missing-GPU benchmark behavior | Exits with an explanatory error; produces no result JSON |
-| Bash syntax | Checked |
-| CUDA compilation | Not run: `nvcc` unavailable |
-| GPU correctness tests | Written, not executed |
-| Nondefault stream and graph replay | Written, not executed |
-| Compute Sanitizer | Acceptance commands provided, not executed |
-| GPU profiling and performance | Not measured |
+| GPU | NVIDIA Tesla T4, 15360 MiB, compute capability 7.5 |
+| Driver | 580.82.07 |
+| CUDA toolkit | 13.0.88 |
+| PyTorch | 2.11.0+cu130 |
+| Python | 3.13.16 |
+| Host compiler | GCC 13.3.0 |
+| Tested source revision | `b120cb28f879a8a215a2626399aa89454e51fda8` |
 
-CPU numerical tests exercise split sizes 1/17/256, dimensions 64/128, shuffled
-pages, zero/one/multiple tokens, large scores, shared prefixes, and empty merges.
-CPU PyTorch tests exercise MQA/GQA/MHA and all-empty/ragged batches against an
-independent FP64 oracle. They do not compile or execute CUDA.
+The CUDA and reference implementation are unchanged from that tested revision.
+Subsequent changes add results, documentation, and reproduction helpers.
 
-The GPU suite includes FP16/FP32, both head dimensions and page sizes, unusual split
-boundaries, empty rows, MQA and MHA mappings, a long-context tail, large logits,
-repeated pages, invalid inputs, current-stream behavior, and graph replay. These
-are acceptance specifications until run on a real GPU.
+## Results and direct evidence
 
-Reproduce CPU checks:
+| Check | Observed result | Evidence |
+|---|---|---|
+| Full test suite, GPU enabled | **57 passed**, no skipped tests | [pytest.log](../results/2026-10-31-t4/pytest.log), [JUnit XML](../results/2026-10-31-t4/pytest.xml) |
+| GPU tests under memcheck | 28 passed; **0 errors** | [memcheck.log](../results/2026-10-31-t4/memcheck.log) |
+| Nondefault stream/graph test under racecheck | 1 passed; **0 errors, 0 warnings** | [racecheck.log](../results/2026-10-31-t4/racecheck.log) |
+| GPU tests under synccheck | 28 passed; **0 errors** | [synccheck.log](../results/2026-10-31-t4/synccheck.log) |
+| Benchmark matrix | **36 points completed**, all correctness gates passed | [manifest](../results/2026-10-31-t4/benchmark_manifest.json), [complete summary](../results/2026-10-31-t4/SUMMARY.md) |
+| Supplemental gather-inclusive measurements | **6 points completed**, all correctness gates passed | Same manifest and summary |
+| Source provenance | Every tracked file's SHA-256 matched the recorded Git commit | [source_audit.json](../results/2026-10-31-t4/source_audit.json) |
+| Environment | Actual driver/toolkit/device output retained | [environment.json](../results/2026-10-31-t4/environment.json) |
+| Separate CUDA 12.4 build check | Compilation, device code generation for sm_75/sm_80, linking and module import passed | [build report](../results/2026-10-31-t4/cuda12-build.json), [build log](../results/2026-10-31-t4/cuda12-build.log) |
+
+The 57 tests comprise 29 CPU/reference checks and 28 CUDA tests. GPU coverage
+includes FP16/FP32, dimensions 64/128, page sizes 16/32, split boundaries,
+ragged/empty contexts, shuffled and shared pages, GQA/MQA/MHA, long-context tails,
+large finite logits, invalid inputs, the current stream, and CUDA graph replay.
+
+The benchmark custom kernels' maximum absolute difference from the FP32 eager
+reference across the 42 reports was 2.384185791015625e-7. This is a measured error
+for seeded synthetic inputs, not a universal accuracy bound. All 42 reports retain
+30 device/wall timing samples per backend, with 20 replays inside each sample.
+
+The general benchmark dirty flag includes the untracked evidence output directory.
+Tracked source had no changes; its recorded hashes were independently compared
+against the tested Git commit after export. No result metadata was rewritten to
+pretend that the working tree was wholly clean.
+
+## Reproduce
+
+On an existing NVIDIA GPU host with compatible PyTorch, CUDA toolkit, and Compute
+Sanitizer installed, run from the repository root:
 
 ```bash
-python -m pip install -e '.[test]'
-bash tools/cpu_check.sh
-# Optional actual torch baseline checks need a PyTorch installation:
-python -m pytest -q tests/test_reference.py
+python -m pip install -e '.[test]' ninja
+bash tools/gpu_acceptance.sh
+bash tools/sweep.sh results/unique-run-name
 ```
 
-Before treating this project as measured portfolio evidence, run
-`bash tools/gpu_acceptance.sh` on an existing compatible NVIDIA host. Retain its
-complete output, exact torch/toolkit/compiler/driver versions, device model, and
-commit. Then run the benchmark matrix, publish raw results, and describe failures
-and regressions. A skipped test, successful import, or CPU algebra check is not
-GPU acceptance. No paid infrastructure or hosted runner has been started.
+The acceptance script refuses to proceed when a real CUDA device is unavailable.
+The default sweep measures the 36 operator-only points. Supplemental measurements
+use `benchmarks/bench_decode.py --include-gather` at batch 1/4, context 1024/4096/16384,
+and split size 256. Unique output paths are required.
+
+Build-only hosts can use `tools/build_extension.py --architectures '7.5;8.0'
+--output results/build.json` with a complete matching CUDA toolchain and CUDA-enabled
+PyTorch. Such a result is explicitly marked as build-only; it is not GPU acceptance.
+
+## Practical limits
+
+This is a validated experimental attention operator on one device/software stack.
+It is not a complete model server or a certified production integration. SDPA uses
+pre-gathered, head-expanded dense KV with automatic backend selection; no tuned
+paged-engine comparison or FlashAttention claim is made. The p95 statistics are
+percentiles of repetition means, not per-request serving latency. Other hardware,
+real model workloads, and hardware-counter profiling remain future validation work.

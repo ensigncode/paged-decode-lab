@@ -1,15 +1,19 @@
 # Customer walkthrough
 
-## Description before GPU acceptance
+## Evidence-backed description
 
-> Ensigncode is developing a CUDA laboratory for long-context LLM attention decode.
-> It includes paged KV addressing, grouped-query heads, partitioned online softmax,
-> a corrected merge, and a reproducible benchmark protocol. CPU reference tests
-> pass; GPU validation and performance measurements are pending.
+> Ensigncode implemented and validated a CUDA laboratory for long-context LLM
+> attention decode. It includes paged KV addressing, grouped-query heads,
+> partitioned online softmax, and a corrected merge. On a Tesla T4, all 57 tests
+> passed; NVIDIA memory and synchronization checks reported zero errors, and
+> race checking reported no errors or warnings. Forty-two measured configurations
+> are published with raw samples, correctness errors, and source hashes.
 
-After acceptance, replace the status with the exact tested stack and link the
-commit, raw evidence, and validation log. A speedup needs baseline, shape, dtype,
-and measurement scope in the same sentence.
+Link the [validation record](VALIDATION.md) and
+[full measured matrix](../results/2026-10-31-t4/SUMMARY.md), including regressions.
+A performance ratio needs its baseline, shape, dtype, hardware, and scope in the
+same sentence. The study uses synthetic inputs and dense PyTorch references;
+it does not establish a speedup over a tuned paged serving engine.
 
 ## Ten-minute demonstration
 

@@ -89,8 +89,8 @@ the current PyTorch CUDA stream select the launch context. Workspace and output
 are reused; output is borrowed and a plan is not reentrant. Callers must establish
 cross-stream dependencies and keep inputs alive. Use separate plans for concurrency.
 
-Compilation and warmup must finish before graph capture. The GPU graph test is
-provided, but graph compatibility remains unverified until run on a specific stack.
+Compilation and warmup must finish before graph capture. The nondefault-stream and graph-replay test passed on the documented
+Tesla T4 / PyTorch 2.11 / CUDA 13 stack. Other stacks require their own acceptance run.
 The extension entry is internal and must not receive untrusted/mutated device
 metadata. Its page-id guard is defense in depth, not a supported masking policy.
 

@@ -1,7 +1,8 @@
 # Benchmark protocol
 
-No GPU measurements are committed. These commands define experiments, not observed
-performance. Run on hardware already available; nothing provisions a rented GPU.
+The [Tesla T4 evidence](../results/2026-10-31-t4/SUMMARY.md) contains 36 matrix
+points and six supplemental gather-inclusive points, each gated on correctness.
+They were measured in one free Colab session. No rented GPU or paid service was used.
 
 ## Paths and scope
 
@@ -27,7 +28,8 @@ all paths against FP32 PyTorch eager attention with TF32 disabled. A failed
 
 Coverage includes shuffled pages, GQA/MQA, empty contexts, partially filled pages,
 large logits, shared prefixes, split sizes including one token, and merge identities.
-Coverage is not evidence that the CUDA tests have executed.
+The documented T4 run executed all 57 tests, including 28 GPU tests.
+Coverage on another device or software stack still requires a new acceptance run.
 
 ## Sampling and interpretation
 
@@ -55,7 +57,9 @@ Use profiler counters for bandwidth claims.
 ## Shape matrix
 
 The sweep runs B=1/4/16, context=1K/4K/16K, split=128/256/512/1024 at Hq/Hkv=32/8,
-D=128, FP16, page size 16: 36 configurations. Extend to D=64, page size 32, FP32,
+D=128, FP16, page size 16: 36 configurations, excluding gather preparation.
+The measured evidence also includes six gather-inclusive points at B=1/4.
+Use --include-gather for an individual supplemental run. Extend to D=64, page size 32, FP32,
 MQA, and uniform contexts. Expanded dense references can require substantial VRAM.
 An OOM is an experiment failure; document a reduced shape, not an incomplete
 comparison disguised as a successful full run. Use unique output directories.

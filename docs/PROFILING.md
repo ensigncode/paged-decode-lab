@@ -1,6 +1,9 @@
 # Profiling experiments
 
-No profiler findings have been collected. Run acceptance first on an existing GPU.
+Correctness, sanitizer acceptance, and the timing matrix have been collected
+on a Tesla T4; see [measured results](../results/2026-10-31-t4/SUMMARY.md).
+Hardware-counter and Nsight findings have not been collected. The hypotheses below
+remain profiling work, rather than conclusions inferred from timings alone.
 
 | Hypothesis | Experiment | What would reject it |
 |---|---|---|
