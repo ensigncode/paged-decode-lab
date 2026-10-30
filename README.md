@@ -1,3 +1,5 @@
+> **Engineering candidate:** new merge and benchmark work is undergoing GPU validation. The historical T4 evidence below covers the previous validated implementation; it does not validate this candidate.
+
 # Paged Decode Lab
 
 **Ensigncode Software · CUDA kernels, inference workloads, and benchmark methodology**
