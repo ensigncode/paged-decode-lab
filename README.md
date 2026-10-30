@@ -7,9 +7,19 @@ the single-token decode step of an LLM. It follows fragmented KV pages directly,
 keeps an online softmax in registers, and merges independent context partitions
 without materializing an attention-score tensor.
 
-**Status: experimental; GPU acceptance pending.** CPU checks pass. CUDA compilation,
-GPU correctness, graph capture, sanitizer checks, and performance have not yet been
-validated. No speedup or customer deployment is claimed. See [validation](docs/VALIDATION.md).
+**Validated on a real NVIDIA Tesla T4; experimental operator study.** All **57 tests
+passed** with CUDA execution. NVIDIA memory and synchronization checks reported
+zero errors; race checking reported zero errors and warnings. The repository includes
+**42 measured benchmark reports**, raw timing samples, environment details, and a
+source-hash audit. See [validation](docs/VALIDATION.md) and the
+[complete measured results](results/2026-10-31-t4/SUMMARY.md).
+
+One measured configuration: batch 4, maximum context 4096, FP16, Hq/Hkv=32/8,
+D=128, page size 16, split size 256. Median device times were **0.518 ms** for the
+custom paged path and **1.122 ms** for PyTorch automatic SDPA on pre-gathered,
+head-expanded dense KV. This is a specific operator/layout comparison, not an
+end-to-end LLM or production serving-engine speedup. The full matrix includes
+regressions at other split sizes.
 
 ## Why this problem
 
@@ -58,7 +68,10 @@ GPU execution additionally needs Linux, an NVIDIA GPU, a C++17 compiler, a local
 CUDA toolkit containing `nvcc`, and a compatible CUDA-enabled PyTorch installation.
 Install PyTorch according to its official instructions for your driver/toolkit.
 A CUDA-enabled wheel alone does not supply the full extension compiler toolchain.
-PyTorch 2.6 headers informed the integration; no GPU stack is validated yet.
+GPU validation used PyTorch 2.11.0+cu130, CUDA 13.0.88, driver 580.82.07,
+and Python 3.13.16 on a Tesla T4. A separate GPU-less build check passed with
+PyTorch 2.6.0+cu124 and CUDA 12.4.131 for sm_75 and sm_80 code generation;
+that second check does not establish execution on another GPU.
 
 ```bash
 # After installing a suitable CUDA-enabled torch>=2.6,<3:
@@ -123,8 +136,9 @@ dropout, backward pass, tensor parallelism, or serving-engine integration is
 implemented. The cache is read-only during an invocation. The query is assumed
 to be at the end of the live cache, so every live token is visible.
 
-GPU acceptance comes first. Measurements should then decide between GQA reuse,
-hierarchical merge, tiled attention, and a compact ragged work grid.
+The T4 correctness and sanitizer acceptance checks are complete. Next work is
+hardware-counter profiling and broader hardware/workload coverage to decide between
+GQA reuse, hierarchical merge, tiled attention, and a compact ragged work grid.
 
 ## Algorithm lineage
 
