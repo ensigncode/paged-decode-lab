@@ -1,6 +1,7 @@
 # Historical version 0.1 NVIDIA GPU validation record
 
 Current H100 acceptance: [H100 validation](H100_VALIDATION.md).
+Current final-revision T4 acceptance and profiling: [fresh T4 evidence](../results/2026-10-31-final-t4/SUMMARY.md).
 
 Completed 31 October 2026 (India time), using a free Google Colab Tesla T4 runtime.
 No paid compute, credits, hardware purchase, or subscription upgrade was used.

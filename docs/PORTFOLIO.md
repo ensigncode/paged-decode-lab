@@ -48,3 +48,7 @@ reviews, contributor identities, or historical commits.
 Discovery should establish prefill vs decode vs scheduling bottlenecks, actual
 batch/context distributions, accuracy tolerance, and end-to-end latency requirements.
 Those answers determine whether this operator is relevant.
+
+## Cross-generation review
+
+The final kernel was revalidated on a free Tesla T4: 125 tests, all four sanitizers and 1,000 randomized oracle cases passed. [Fresh evidence and profiling](../results/2026-10-31-final-t4/SUMMARY.md) include nine CUDA activity traces, a real Nsight Compute report, raw counter CSVs and split-size experiments. The attention partial stage dominates the measured T4 shapes. Tuning showed only small exploratory changes, so no new default or kernel was promoted. H100 stage/counter profiling remains outstanding; T4 findings are not presented as H100 measurements.

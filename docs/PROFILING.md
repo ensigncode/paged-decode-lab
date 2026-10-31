@@ -1,37 +1,75 @@
-# Profiling experiments
+# Profiling findings and experiments
 
-Correctness, sanitizer acceptance, and the timing matrix have been collected
-on a Tesla T4; see [measured results](../results/2026-10-31-t4/SUMMARY.md).
-Hardware-counter and Nsight findings have not been collected. The hypotheses below
-remain profiling work, rather than conclusions inferred from timings alone.
+The [fresh T4 record](../results/2026-10-31-final-t4/SUMMARY.md) includes
+nine complete CUDA activity traces, a real Nsight Compute report with readable
+counter CSVs, and a five-split/two-merge exploration at batches 1/4/16.
+The source matches the final H100-validated kernel. No kernel or default changed.
 
-| Hypothesis | Experiment | What would reject it |
-|---|---|---|
-| Small batch/long context underoccupies the GPU | Split-size sweep at matched shape | More CTAs do not reduce time, or merge dominates |
-| GQA causes redundant traffic | Hq=32,Hkv=1/8/32; inspect memory counters | L2 reuse hides most extra reads |
-| Excessive splits hurt merge | Inspect partial vs merge duration | Partial stage still dominates |
-| Scalar recurrence is instruction-bound | Inspect exp/shuffle stalls and bandwidth | DRAM is already saturated |
-| Ragged grid wastes scheduling | Matched live-token count, different length skew | Empty CTAs have negligible cost |
+## Measured T4 findings
 
-Example commands on a host with Nsight already installed:
+- The attention partial stage accounts for about 93–98% of summed custom serial
+  kernel time in the three traces. Optimizing only the merge cannot close the
+  measured FlashInfer gap.
+- At B4/L4096, Nsight Compute measured partial-stage occupancy of 91.21%, zero
+  local-memory spill requests and DRAM throughput at 28.98% of peak. The partial
+  stage cannot be described simply as low-occupancy or DRAM-bandwidth-saturated.
+- The serial merge has only 0.40 waves per SM at this shape, but its small share
+  of total kernel time limits the opportunity from merge-only changes.
+- Split tuning changed best observed eager medians by only about 3–4%. Winners
+  vary by batch and timing mode. Shared merge still has regressions. There is no
+  independently confirmed tuning win and no default change.
+
+These are T4 findings. **H100 stage/counter profiling has not been collected.**
+The [H100 acceptance record](../results/2026-10-31-h100/SUMMARY.md) contains
+correctness, sanitizer and matched timing evidence, not hardware-counter claims.
+
+## Reproduce on an existing compatible GPU
+
+Use the pinned stack for the GPU being tested. Plans, compilation, profiling and
+graph capture are outside the benchmark sample regions. The profiling driver
+checks correctness before timing every runner and checks graph outputs again.
 
 ```bash
-nsys profile --trace=cuda,nvtx,osrt --output=results/decode-trace \
-  python benchmarks/bench_decode.py --repetitions 3 --inner 5 \
-  --output results/profile-run.json
-ncu --set full --kernel-name-base demangled \
-  --kernel-name 'regex:.*(partial_decode|merge_decode).*' \
-  --launch-skip 10 --launch-count 4 --export results/decode-kernels \
-  python benchmarks/bench_decode.py --repetitions 1 --inner 1 \
-  --output results/ncu-run.json
+PYTHONPATH=src python benchmarks/profile_decode.py --output results/my-profile
+# Optional orchestration: environment capture, bounded processes and NCU attempt.
+PYTHONPATH=src bash tools/profile_existing_gpu.sh results/my-profile-batch
 ```
 
-Available metrics and CLI behavior depend on tool/GPU versions. Verify selected
-kernel names/shapes: correctness and warmup launches affect launch-skip. Profiled
-runs have substantial overhead and are not normal timing results.
+The Python driver was executed on T4. The shell orchestration is syntax-checked;
+it does not rent a GPU or stop cloud billing. A process timeout is not a provider
+shutdown policy. Capture the output before releasing an ephemeral runtime.
 
-After measurement, consider KV tile reuse across GQA heads, tiled rather than
-one-score-at-a-time recurrence, hierarchical merging, or compact ragged work queues.
-Each change needs correctness tests and matched before/after JSON, including
-regressions. Native serving-engine integration needs a separate API contract and
-competitive engine baseline. Do not assume this experimental layout is drop-in.
+For two targeted Nsight Compute launches after untimed warmup:
+
+```bash
+PYTHONPATH=src ncu --nvtx --nvtx-include 'profile/' --set detailed \
+  --launch-count 2 --export results/my-ncu \
+  python benchmarks/profile_decode.py --ncu-target --output results/my-ncu-target
+ncu --import results/my-ncu.ncu-rep --page details --csv > results/my-ncu-details.csv
+ncu --import results/my-ncu.ncu-rep --page raw --csv > results/my-ncu-raw.csv
+```
+
+The `profile` push/pop range contains one partial-stage launch and one serial
+merge launch at B4/L4096. The NCU mode does not run the timing matrix. Keep tool
+errors visible; do not weaken host security settings or silently suppress
+permission errors. See NVIDIA's [CLI documentation](https://docs.nvidia.com/nsight-compute/NsightComputeCli/index.html)
+and [performance-counter permission explanation](https://developer.nvidia.com/ERR_NVGPUCTRPERM).
+
+## Interpretation and next work
+
+Chrome traces provide CUDA activity durations, not hardware performance counters.
+The Nsight report provides the separately replayed counter experiment. Profiler
+instrumentation, replay and clock behavior perturb duration. Do not mix these
+numbers with unprofiled medians, infer request tail latency from repetition means,
+or transfer a T4 bottleneck conclusion to H100.
+
+The T4 report records about 585 MHz SM frequency. The free shared runtime did not
+provide fixed application clocks, and identical partial kernels varied across
+captures. The raw trial order, samples, trace events and counter report remain
+available so these limitations can be inspected.
+
+Source inspection motivates grouped-head KV reuse and tiled score/softmax work
+as next experiments. The existing GQA kernel issues separate logical KV reads
+per query head; cache hits mean this is not equal to duplicated DRAM traffic.
+Any optimization needs independent correctness/sanitizer acceptance and matched
+before/after measurements, including regressions, on its target GPU.
