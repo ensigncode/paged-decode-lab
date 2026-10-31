@@ -1,0 +1,105 @@
+Collecting ninja
+  Downloading ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.4 kB)
+Requirement already satisfied: pytest in /usr/local/lib/python3.13/dist-packages (8.4.2)
+Collecting flashinfer-python
+  Downloading flashinfer_python-0.7.2.post1-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: iniconfig>=1 in /usr/local/lib/python3.13/dist-packages (from pytest) (2.3.1)
+Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.13/dist-packages (from pytest) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in /usr/local/lib/python3.13/dist-packages (from pytest) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in /usr/local/lib/python3.13/dist-packages (from pytest) (2.21.0)
+Collecting apache-tvm-ffi<0.2,>=0.1.11 (from flashinfer-python)
+  Downloading apache_tvm_ffi-0.1.15.post2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (6.2 kB)
+Requirement already satisfied: click in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (8.5.0)
+Requirement already satisfied: cuda-python>=12.0 in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (13.0.3)
+Collecting cuda-tile>=1.4.0 (from flashinfer-python)
+  Downloading cuda_tile-1.7.0-cp313-cp313-manylinux2014_x86_64.whl.metadata (7.3 kB)
+Requirement already satisfied: einops in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (0.8.2)
+Collecting nccl-extensions>=0.1.0 (from flashinfer-python)
+  Downloading nccl_extensions-0.1.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.8 kB)
+Collecting nccl4py>=0.4.1 (from flashinfer-python)
+  Downloading nccl4py-0.6.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.2 kB)
+Requirement already satisfied: numpy in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (2.1.3)
+Collecting nvidia-cudnn-frontend>=1.31.0 (from flashinfer-python)
+  Downloading nvidia_cudnn_frontend-1.32.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (20 kB)
+Collecting nvidia-cutlass-dsl>=4.6.2a0 (from flashinfer-python)
+  Downloading nvidia_cutlass_dsl-4.8.1-py3-none-any.whl.metadata (3.1 kB)
+Requirement already satisfied: nvidia-ml-py in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (13.615.71)
+Requirement already satisfied: requests in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (2.32.4)
+Requirement already satisfied: tabulate in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (0.9.0)
+Requirement already satisfied: torch in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (2.11.0+cu130)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.13/dist-packages (from flashinfer-python) (4.67.3)
+Requirement already satisfied: typing-extensions>=4.13 in /usr/local/lib/python3.13/dist-packages (from apache-tvm-ffi<0.2,>=0.1.11->flashinfer-python) (4.16.0)
+Requirement already satisfied: cuda-bindings~=13.0.3 in /usr/local/lib/python3.13/dist-packages (from cuda-python>=12.0->flashinfer-python) (13.0.3)
+Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-python>=12.0->flashinfer-python) (1.8.4)
+Collecting cuda-core~=1.0 (from nccl-extensions>=0.1.0->flashinfer-python)
+  Downloading cuda_core-1.2.2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.4 kB)
+Collecting nvidia-cutlass-dsl-libs-base==4.8.1 (from nvidia-cutlass-dsl>=4.6.2a0->flashinfer-python)
+  Downloading nvidia_cutlass_dsl_libs_base-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (2.9 kB)
+Collecting nvidia-cutlass-dsl-libs-cu12==4.8.1 (from nvidia-cutlass-dsl>=4.6.2a0->flashinfer-python)
+  Downloading nvidia_cutlass_dsl_libs_cu12-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (2.9 kB)
+Requirement already satisfied: protobuf>=4.21.12 in /usr/local/lib/python3.13/dist-packages (from nvidia-cutlass-dsl-libs-base==4.8.1->nvidia-cutlass-dsl>=4.6.2a0->flashinfer-python) (6.33.6)
+Collecting nvidia-cutlass-dsl-libs-core==4.8.1 (from nvidia-cutlass-dsl-libs-base==4.8.1->nvidia-cutlass-dsl>=4.6.2a0->flashinfer-python)
+  Downloading nvidia_cutlass_dsl_libs_core-4.8.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting nvidia-cutlass-dsl-libs-cu13==4.8.1 (from nvidia-cutlass-dsl[cu13]>=4.8.0; sys_platform != "win32" or platform_machine != "ARM64"->nvidia-cudnn-frontend>=1.31.0->flashinfer-python)
+  Downloading nvidia_cutlass_dsl_libs_cu13-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (2.9 kB)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.13/dist-packages (from requests->flashinfer-python) (3.4.9)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.13/dist-packages (from requests->flashinfer-python) (3.20)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.13/dist-packages (from requests->flashinfer-python) (2.5.0)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.13/dist-packages (from requests->flashinfer-python) (2026.10.23)
+Requirement already satisfied: filelock in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (4.2.4)
+Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (80.10.2)
+Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (3.7)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (2025.12.0)
+Requirement already satisfied: cuda-toolkit==13.0.2 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.2)
+Requirement already satisfied: nvidia-cudnn-cu13==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (9.19.0.56)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.0 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (0.8.0)
+Requirement already satisfied: nvidia-nccl-cu13==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (2.28.9)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (3.4.5)
+Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch->flashinfer-python) (3.6.0)
+Requirement already satisfied: nvidia-cublas==13.1.0.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.1.0.3)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.96.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.96)
+Requirement already satisfied: nvidia-cufft==12.0.0.61.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (12.0.0.61)
+Requirement already satisfied: nvidia-cufile==1.15.1.6.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (1.15.1.6)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.85.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.85)
+Requirement already satisfied: nvidia-curand==10.4.0.35.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (10.4.0.35)
+Requirement already satisfied: nvidia-cusolver==12.0.4.66.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (12.0.4.66)
+Requirement already satisfied: nvidia-cusparse==12.6.3.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (12.6.3.3)
+Requirement already satisfied: nvidia-nvjitlink==13.0.88.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.88)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.88.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.88)
+Requirement already satisfied: nvidia-nvtx==13.0.85.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->flashinfer-python) (13.0.85)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch->flashinfer-python) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch->flashinfer-python) (3.0.4)
+Downloading ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (183 kB)
+Downloading flashinfer_python-0.7.2.post1-py3-none-any.whl (62.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.1/62.1 MB 55.9 MB/s  0:00:01
+Downloading apache_tvm_ffi-0.1.15.post2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 78.6 MB/s  0:00:00
+Downloading cuda_tile-1.7.0-cp313-cp313-manylinux2014_x86_64.whl (426 kB)
+Downloading nccl_extensions-0.1.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (22.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.6/22.6 MB 124.2 MB/s  0:00:00
+Downloading cuda_core-1.2.2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 97.4 MB/s  0:00:00
+Downloading nccl4py-0.6.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 107.1 MB/s  0:00:00
+Downloading nvidia_cudnn_frontend-1.32.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (11.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.6/11.6 MB 121.3 MB/s  0:00:00
+Downloading nvidia_cutlass_dsl-4.8.1-py3-none-any.whl (10 kB)
+Downloading nvidia_cutlass_dsl_libs_base-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 84.3 MB/s  0:00:00
+Downloading nvidia_cutlass_dsl_libs_core-4.8.1-py3-none-any.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 68.1 MB/s  0:00:00
+Downloading nvidia_cutlass_dsl_libs_cu12-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl (91.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 MB 54.4 MB/s  0:00:01
+Downloading nvidia_cutlass_dsl_libs_cu13-4.8.1-cp313-cp313-manylinux_2_28_x86_64.whl (92.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 92.0/92.0 MB 51.7 MB/s  0:00:01
+Installing collected packages: ninja, cuda-tile, cuda-core, apache-tvm-ffi, nvidia-cutlass-dsl-libs-core, nccl4py, nvidia-cutlass-dsl-libs-base, nccl-extensions, nvidia-cutlass-dsl-libs-cu13, nvidia-cutlass-dsl-libs-cu12, nvidia-cutlass-dsl, nvidia-cudnn-frontend, flashinfer-python
+  Attempting uninstall: cuda-core
+    Found existing installation: cuda-core 0.7.0
+    Uninstalling cuda-core-0.7.0:
+      Successfully uninstalled cuda-core-0.7.0
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+numba-cuda 0.28.2 requires cuda-core<1.0.0,>=0.5.1, but you have cuda-core 1.2.2 which is incompatible.
+Successfully installed apache-tvm-ffi-0.1.15.post2 cuda-core-1.2.2 cuda-tile-1.7.0 flashinfer-python-0.7.2.post1 nccl-extensions-0.1.0 nccl4py-0.6.0 ninja-1.13.2 nvidia-cudnn-frontend-1.32.1 nvidia-cutlass-dsl-4.8.1 nvidia-cutlass-dsl-libs-base-4.8.1 nvidia-cutlass-dsl-libs-core-4.8.1 nvidia-cutlass-dsl-libs-cu12-4.8.1 nvidia-cutlass-dsl-libs-cu13-4.8.1

@@ -1,0 +1,130 @@
+........................................................................ [ 57%]
+...............F
+=================================== FAILURES ===================================
+____ test_external_paged_reference_matches_independent_oracle[128-16-32-1] _____
+
+dim = 128, page = 16, heads = 32, kv_heads = 1
+
+    @pytest.mark.parametrize("dim,page,heads,kv_heads",[(64,16,8,8),(128,32,32,8),(128,16,32,1)])
+    def test_external_paged_reference_matches_independent_oracle(dim,page,heads,kv_heads):
+        layout,table,lengths=make_metadata(3,heads,kv_heads,dim,129,page,seed=87)
+        q,k,v=make_tensors(layout,seed=88)
+>       plan=FlashInferPlan(layout,table,lengths,device=q.device)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_flashinfer.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/paged_decode/competitors.py:45: in __init__
+    self.wrapper.plan(self.offsets,self.indices,self.last,layout.query_heads,
+/usr/local/lib/python3.13/dist-packages/flashinfer/api_logging.py:2369: in _auto_dump_wrapper
+    return _inner(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/dist-packages/flashinfer/decode.py:1946: in plan
+    return self._plan_impl(
+/usr/local/lib/python3.13/dist-packages/flashinfer/decode.py:2452: in _plan_impl
+    self._plan_info = self._cached_module.plan(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   RuntimeError: Error in function 'operator()' at /root/.cache/flashinfer/0.7.2.post1/75/generated/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False/batch_decode.cu:63: Unsupported group_size: 32
+
+python/tvm_ffi/cython/function.pxi:1038: RuntimeError
+==================================== PASSES ====================================
+_____ test_external_paged_reference_matches_independent_oracle[64-16-8-8] ______
+----------------------------- Captured stderr call -----------------------------
+2026-10-30 20:31:49,726 - INFO - core.py:594 - flashinfer.jit: Building JIT module batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False; this can take several minutes on first use.
+____ test_external_paged_reference_matches_independent_oracle[128-32-32-8] _____
+----------------------------- Captured stderr call -----------------------------
+2026-10-30 20:32:25,212 - INFO - core.py:594 - flashinfer.jit: Building JIT module batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False; this can take several minutes on first use.
+---- generated xml file: /content/ensigncode-hardening-evidence/pytest.xml -----
+=========================== short test summary info ============================
+PASSED tests/test_competitors.py::test_csr_preserves_fragmented_shared_pages_and_partial_lengths
+PASSED tests/test_competitors.py::test_csr_rejects_empty_external_comparison_rows
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-16-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[1-32-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-16-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[33-32-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-16-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype0-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype0-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype0-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype0-128-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype1-64-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype1-64-shared]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype1-128-serial]
+PASSED tests/test_cuda.py::test_ragged_decode[256-32-dtype1-128-shared]
+PASSED tests/test_cuda.py::test_nondefault_stream_and_graph_capture[serial]
+PASSED tests/test_cuda.py::test_nondefault_stream_and_graph_capture[shared]
+PASSED tests/test_cuda.py::test_large_logits_and_repeated_pages[serial]
+PASSED tests/test_cuda.py::test_large_logits_and_repeated_pages[shared]
+PASSED tests/test_cuda.py::test_rejects_invalid_inputs
+PASSED tests/test_cuda.py::test_all_empty_contexts_and_long_partition_tail[serial]
+PASSED tests/test_cuda.py::test_all_empty_contexts_and_long_partition_tail[shared]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-0]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-1]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-2]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-3]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-4]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-5]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-6]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-7]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-8]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-9]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-10]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[serial-11]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-0]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-1]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-2]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-3]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-4]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-5]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-6]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-7]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-8]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-9]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-10]
+PASSED tests/test_cuda.py::test_randomized_layout_and_content[shared-11]
+PASSED tests/test_cuda.py::test_changing_decode_across_page_boundaries[serial]
+PASSED tests/test_cuda.py::test_changing_decode_across_page_boundaries[shared]
+PASSED tests/test_cuda.py::test_shared_merge_resource_bound_uses_explicit_fallback
+PASSED tests/test_cuda.py::test_rejects_same_shape_noncontiguous_and_wrong_device
+PASSED tests/test_flashinfer.py::test_external_paged_reference_matches_independent_oracle[64-16-8-8]
+PASSED tests/test_flashinfer.py::test_external_paged_reference_matches_independent_oracle[128-32-32-8]
+FAILED tests/test_flashinfer.py::test_external_paged_reference_matches_independent_oracle[128-16-32-1]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 87 passed in 162.85s (0:02:42)

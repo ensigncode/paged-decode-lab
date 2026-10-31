@@ -107,11 +107,71 @@ __global__ void merge_decode(const float* __restrict__ numerator,
     out[row * D + d] = denominator > 0.0f ? value / denominator : 0.0f;
 }
 
+// Compute each partial's exponential once per CTA rather than once per
+// output dimension. Bound the shared workspace in the host dispatcher; large
+// partition counts retain the serial merge as an explicit fallback.
+__device__ __forceinline__ float warp_max(float value) {
+    #pragma unroll
+    for (int delta = 16; delta > 0; delta >>= 1)
+        value = fmaxf(value, __shfl_down_sync(kFullMask, value, delta));
+    return __shfl_sync(kFullMask, value, 0);
+}
+
+template <int D>
+__global__ void merge_shared(const float* __restrict__ numerator,
+                              const float* __restrict__ stats,
+                              float* __restrict__ out, int parts) {
+    extern __shared__ float weights[];
+    __shared__ float warp_scratch[4];
+    __shared__ float maximum;
+    __shared__ float denominator;
+    const int d = threadIdx.x;
+    const int lane = d % kWarp;
+    const int warp = d / kWarp;
+    const int64_t row = blockIdx.x;
+    float local_maximum = -INFINITY;
+    for (int p = d; p < parts; p += D) {
+        const int64_t index = (row * parts + p) * 2;
+        if (stats[index + 1] > 0.0f)
+            local_maximum = fmaxf(local_maximum, stats[index]);
+    }
+    const float reduced_maximum = warp_max(local_maximum);
+    if (lane == 0) warp_scratch[warp] = reduced_maximum;
+    __syncthreads();
+    if (warp == 0) {
+        const float value = lane < D / kWarp ? warp_scratch[lane] : -INFINITY;
+        const float block_maximum = warp_max(value);
+        if (lane == 0) maximum = block_maximum;
+    }
+    __syncthreads();
+    float local_denominator = 0.0f;
+    for (int p = d; p < parts; p += D) {
+        const int64_t index = (row * parts + p) * 2;
+        const float length = stats[index + 1];
+        const float correction = length > 0.0f ? expf(stats[index] - maximum) : 0.0f;
+        weights[p] = correction;
+        local_denominator = fmaf(correction, length, local_denominator);
+    }
+    const float reduced_denominator = warp_sum(local_denominator);
+    if (lane == 0) warp_scratch[warp] = reduced_denominator;
+    __syncthreads();
+    if (warp == 0) {
+        const float value = lane < D / kWarp ? warp_scratch[lane] : 0.0f;
+        const float block_denominator = warp_sum(value);
+        if (lane == 0) denominator = block_denominator;
+    }
+    __syncthreads();
+    float value = 0.0f;
+    for (int p = 0; p < parts; ++p)
+        value = fmaf(weights[p], numerator[(row * parts + p) * D + d], value);
+    out[row * D + d] = denominator > 0.0f ? value / denominator : 0.0f;
+}
+
 template <typename scalar_t, int D>
 void launch(torch::Tensor q, torch::Tensor k, torch::Tensor v,
             torch::Tensor table, torch::Tensor lengths, torch::Tensor numerator,
             torch::Tensor stats, torch::Tensor out, int split_tokens,
-            cudaStream_t stream) {
+            int merge_mode, cudaStream_t stream) {
     const int splits = numerator.size(2) / kWarps;
     dim3 grid(q.size(1), q.size(0), splits);
     partial_decode<scalar_t, D><<<grid, kWarp * kWarps, 0, stream>>>(
@@ -120,9 +180,16 @@ void launch(torch::Tensor q, torch::Tensor k, torch::Tensor v,
         numerator.data_ptr<float>(), stats.data_ptr<float>(), q.size(1),
         k.size(2), k.size(1), table.size(1), k.size(0), splits, split_tokens);
     C10_CUDA_KERNEL_LAUNCH_CHECK();
-    merge_decode<D><<<q.size(0) * q.size(1), D, 0, stream>>>(
-        numerator.data_ptr<float>(), stats.data_ptr<float>(),
-        out.data_ptr<float>(), splits * kWarps);
+    if (merge_mode == 1) {
+        merge_shared<D><<<q.size(0) * q.size(1), D,
+                          splits * kWarps * sizeof(float), stream>>>(
+            numerator.data_ptr<float>(), stats.data_ptr<float>(),
+            out.data_ptr<float>(), splits * kWarps);
+    } else {
+        merge_decode<D><<<q.size(0) * q.size(1), D, 0, stream>>>(
+            numerator.data_ptr<float>(), stats.data_ptr<float>(),
+            out.data_ptr<float>(), splits * kWarps);
+    }
     C10_CUDA_KERNEL_LAUNCH_CHECK();
 }
 } // namespace
@@ -130,7 +197,7 @@ void launch(torch::Tensor q, torch::Tensor k, torch::Tensor v,
 void decode_cuda(torch::Tensor q, torch::Tensor k, torch::Tensor v,
                  torch::Tensor table, torch::Tensor lengths,
                  torch::Tensor numerator, torch::Tensor stats,
-                 torch::Tensor out, int64_t split_tokens) {
+                 torch::Tensor out, int64_t split_tokens, int64_t merge_mode) {
     for (const auto& tensor : {q, k, v, table, lengths, numerator, stats, out}) {
         TORCH_CHECK(tensor.is_cuda() && tensor.is_contiguous(),
                     "all tensors must be contiguous CUDA tensors");
@@ -163,6 +230,9 @@ void decode_cuda(torch::Tensor q, torch::Tensor k, torch::Tensor v,
     TORCH_CHECK(stats.dim() == 4 && stats.size(0) == b && stats.size(1) == h &&
                 stats.size(2) == parts && stats.size(3) == 2, "invalid stats workspace");
     TORCH_CHECK(out.sizes() == q.sizes(), "invalid output shape");
+    TORCH_CHECK(b * h <= INT32_MAX, "output grid exceeds CUDA grid limit");
+    TORCH_CHECK(merge_mode == 0 || (merge_mode == 1 && parts <= 4096),
+                "shared merge requires at most 4096 partial states");
     TORCH_CHECK(numerator.scalar_type() == at::kFloat && stats.scalar_type() == at::kFloat &&
                 out.scalar_type() == at::kFloat, "workspaces/output must be float32");
     // Values in metadata are checked on CPU by DecodePlan, outside the hot path.
@@ -170,7 +240,7 @@ void decode_cuda(torch::Tensor q, torch::Tensor k, torch::Tensor v,
     c10::cuda::CUDAGuard guard(q.device());
     const auto stream = c10::cuda::getCurrentCUDAStream(q.get_device());
     AT_DISPATCH_FLOATING_TYPES_AND_HALF(q.scalar_type(), "paged_decode", [&] {
-        if (d == 64) launch<scalar_t, 64>(q,k,v,table,lengths,numerator,stats,out,split_tokens,stream);
-        else launch<scalar_t, 128>(q,k,v,table,lengths,numerator,stats,out,split_tokens,stream);
+        if (d == 64) launch<scalar_t, 64>(q,k,v,table,lengths,numerator,stats,out,split_tokens,merge_mode,stream);
+        else launch<scalar_t, 128>(q,k,v,table,lengths,numerator,stats,out,split_tokens,merge_mode,stream);
     });
 }

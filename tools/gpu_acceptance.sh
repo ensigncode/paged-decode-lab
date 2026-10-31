@@ -8,6 +8,8 @@ python -m pytest -q --maxfail=1
 compute-sanitizer --tool memcheck --error-exitcode 1 \
   python -m pytest -q tests/test_cuda.py --maxfail=1
 compute-sanitizer --tool racecheck --error-exitcode 1 \
-  python -m pytest -q tests/test_cuda.py -k 'nondefault_stream' --maxfail=1
+  python -m pytest -q tests/test_cuda.py --maxfail=1
 compute-sanitizer --tool synccheck --error-exitcode 1 \
+  python -m pytest -q tests/test_cuda.py --maxfail=1
+compute-sanitizer --tool initcheck --error-exitcode 1 \
   python -m pytest -q tests/test_cuda.py --maxfail=1

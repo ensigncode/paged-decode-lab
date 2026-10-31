@@ -1,4 +1,4 @@
-# NVIDIA GPU validation record
+# Historical version 0.1 NVIDIA GPU validation record
 
 Completed 31 October 2026 (India time), using a free Google Colab Tesla T4 runtime.
 No paid compute, credits, hardware purchase, or subscription upgrade was used.
@@ -15,8 +15,10 @@ No paid compute, credits, hardware purchase, or subscription upgrade was used.
 | Host compiler | GCC 13.3.0 |
 | Tested source revision | `b120cb28f879a8a215a2626399aa89454e51fda8` |
 
-The CUDA and reference implementation are unchanged from that tested revision.
-Subsequent changes add results, documentation, and reproduction helpers.
+This record covers version 0.1 at the revision above. Version 0.2 changes the
+CUDA merge and validation code; see [hardening evidence](../results/2026-10-31-hardening/SUMMARY.md)
+for its separate execution record. Do not attribute these historical results to
+the new implementation.
 
 ## Results and direct evidence
 

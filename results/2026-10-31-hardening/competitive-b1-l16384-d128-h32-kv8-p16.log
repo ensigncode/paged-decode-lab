@@ -1,0 +1,18 @@
+/usr/local/lib/python3.13/dist-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+SDPA actual dispatch: {'identified_backend': 'efficient', 'observed_operators': ['aten::_efficient_attention_forward', 'aten::_scaled_dot_product_efficient_attention', 'aten::scaled_dot_product_attention'], 'method': 'CPU profiler records actual SDPA dispatch; not a GPU bandwidth profile'}
+eager cuda_serial_merge 0.7999512195587157
+eager cuda_shared_merge 0.7615832090377808
+eager sdpa_auto_dense 1.5852240085601808
+eager sdpa_math_dense 8.217265701293945
+eager sdpa_efficient_dense 1.6283103942871093
+eager flashinfer_cuda_core 0.2982967972755432
+eager flashinfer_tensor_core 0.29707520008087157
+cuda_graph cuda_serial_merge 0.7917560100555421
+cuda_graph cuda_shared_merge 0.7625623941421509
+cuda_graph sdpa_auto_dense 1.6970831871032714
+cuda_graph sdpa_math_dense 8.224324035644532
+cuda_graph sdpa_efficient_dense 1.6382607460021972
+cuda_graph flashinfer_cuda_core 0.2873792052268982
+cuda_graph flashinfer_tensor_core 0.29041759967803954
+SAVED /content/ensigncode-hardening-evidence/competitive-b1-l16384-d128-h32-kv8-p16.json

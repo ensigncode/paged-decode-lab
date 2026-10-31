@@ -1,0 +1,13 @@
+diff --git a/tests/test_flashinfer.py b/tests/test_flashinfer.py
+index cd96f85..ba267a5 100644
+--- a/tests/test_flashinfer.py
++++ b/tests/test_flashinfer.py
+@@ -12,7 +12,7 @@ from paged_decode.workload import make_metadata,make_tensors
+ pytestmark=pytest.mark.gpu
+ 
+ 
+-@pytest.mark.parametrize("dim,page,heads,kv_heads",[(64,16,8,8),(128,32,32,8),(128,16,32,1)])
++@pytest.mark.parametrize("dim,page,heads,kv_heads",[(64,16,8,8),(128,32,32,8),(128,16,8,1)])
+ def test_external_paged_reference_matches_independent_oracle(dim,page,heads,kv_heads):
+     layout,table,lengths=make_metadata(3,heads,kv_heads,dim,129,page,seed=87)
+     q,k,v=make_tensors(layout,seed=88)

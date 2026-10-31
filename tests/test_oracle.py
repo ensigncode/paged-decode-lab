@@ -71,3 +71,20 @@ def test_metadata_validation_copies_caller_arrays():
     lengths[:] = 0
     np.testing.assert_array_equal(copied_table, [[0, 1]])
     np.testing.assert_array_equal(copied_lengths, [17])
+
+
+@pytest.mark.parametrize("value", [True, False, 1.5, "4", np.float64(4)])
+def test_layout_requires_integer_dimensions(value):
+    with pytest.raises(TypeError):
+        Layout(value,4,2,64,16,2)
+
+
+@pytest.mark.parametrize("value", [0,-1])
+def test_layout_requires_positive_dimensions(value):
+    with pytest.raises(ValueError):
+        Layout(value,4,2,64,16,2)
+
+
+def test_invalid_head_ratio_is_rejected():
+    with pytest.raises(ValueError):
+        Layout(1,3,2,64,16,2)
