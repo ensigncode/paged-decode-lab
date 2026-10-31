@@ -1,0 +1,26 @@
+[
+  {
+    "name": "latest-version",
+    "exit_code": 0
+  },
+  {
+    "name": "latest-negative",
+    "exit_code": 1
+  },
+  {
+    "name": "latest-memcheck",
+    "exit_code": 1
+  },
+  {
+    "name": "latest-racecheck",
+    "exit_code": 0
+  },
+  {
+    "name": "latest-synccheck",
+    "exit_code": 0
+  },
+  {
+    "name": "latest-initcheck",
+    "exit_code": 0
+  }
+]

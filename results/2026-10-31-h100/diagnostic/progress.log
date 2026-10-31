@@ -1,0 +1,6 @@
+gpu 0
+old-version 0
+compile 0
+old-probe 0
+PermissionError(13, 'Permission denied')
+DIAGNOSTIC_READY

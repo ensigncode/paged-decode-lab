@@ -1,0 +1,7 @@
+latest-version 0
+latest-negative 1
+latest-memcheck 1
+latest-racecheck 0
+latest-synccheck 0
+latest-initcheck 0
+LATEST_DONE

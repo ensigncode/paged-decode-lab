@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="86" time="48.611" timestamp="2026-10-31T08:49:48.839380+00:00" hostname="bbb41516782b"><testcase classname="tests.test_competitors" name="test_csr_preserves_fragmented_shared_pages_and_partial_lengths" time="0.004" /><testcase classname="tests.test_competitors" name="test_csr_rejects_empty_external_comparison_rows" time="0.001" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype0-64-serial]" time="43.607" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype0-64-shared]" time="0.006" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype0-128-serial]" time="0.005" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype0-128-shared]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype1-64-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype1-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-16-dtype1-128-shared]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype0-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype0-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype0-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype0-128-shared]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype1-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype1-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[1-32-dtype1-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype0-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype0-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype0-128-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype0-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype1-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype1-128-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-16-dtype1-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype0-64-serial]" time="0.005" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype0-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype0-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype0-128-shared]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype1-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype1-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[33-32-dtype1-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype0-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype0-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype0-128-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype0-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype1-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype1-128-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-16-dtype1-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype0-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype0-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype0-128-serial]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype0-128-shared]" time="0.004" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype1-64-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype1-64-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype1-128-serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_ragged_decode[256-32-dtype1-128-shared]" time="0.003" /><testcase classname="tests.test_cuda" name="test_nondefault_stream_and_graph_capture[serial]" time="0.098" /><testcase classname="tests.test_cuda" name="test_nondefault_stream_and_graph_capture[shared]" time="0.005" /><testcase classname="tests.test_cuda" name="test_large_logits_and_repeated_pages[serial]" time="0.003" /><testcase classname="tests.test_cuda" name="test_large_logits_and_repeated_pages[shared]" time="0.002" /><testcase classname="tests.test_cuda" name="test_rejects_invalid_inputs" time="0.013" /><testcase classname="tests.test_cuda" name="test_all_empty_contexts_and_long_partition_tail[serial]" time="0.069" /><testcase classname="tests.test_cuda" name="test_all_empty_contexts_and_long_partition_tail[shared]" time="0.179" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-0]" time="0.043" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-1]" time="0.005" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-2]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-3]" time="0.004" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-4]" time="0.091" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-5]" time="0.005" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-6]" time="0.005" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-7]" time="0.006" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-8]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-9]" time="0.004" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-10]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[serial-11]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-0]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-1]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-2]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-3]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-4]" time="0.004" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-5]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-6]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-7]" time="0.004" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-8]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-9]" time="0.003" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-10]" time="0.002" /><testcase classname="tests.test_cuda" name="test_randomized_layout_and_content[shared-11]" time="0.003" /><testcase classname="tests.test_cuda" name="test_changing_decode_across_page_boundaries[serial]" time="0.008" /><testcase classname="tests.test_cuda" name="test_changing_decode_across_page_boundaries[shared]" time="0.008" /><testcase classname="tests.test_cuda" name="test_shared_merge_resource_bound_uses_explicit_fallback" time="0.003" /><testcase classname="tests.test_cuda" name="test_rejects_same_shape_noncontiguous_and_wrong_device" time="0.001" /><testcase classname="tests.test_flashinfer" name="test_external_paged_reference_matches_independent_oracle[64-16-8-8]" time="0.095"><failure message="RuntimeError: Ninja build failed. Ninja output:&#10;ninja: Entering directory `/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False'&#10;[+6 more lines; full report in element text]">workdir = PosixPath('/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False')
+ninja_file = PosixPath('/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/build.ninja')
+verbose = False, max_jobs = None
+
+    def run_ninja(
+        workdir: Path,
+        ninja_file: Path,
+        verbose: bool,
+        max_jobs: Optional[int] = None,
+    ) -&gt; None:
+        workdir.mkdir(parents=True, exist_ok=True)
+        command = [
+            "ninja",
+            "-v",
+            "-C",
+            str(workdir.resolve()),
+            "-f",
+            str(ninja_file.resolve()),
+        ]
+        num_workers = max_jobs if max_jobs is not None else _get_num_workers()
+        if num_workers is not None:
+            command += ["-j", str(num_workers)]
+    
+        sys.stdout.flush()
+        sys.stderr.flush()
+        try:
+&gt;           subprocess.run(
+                command,
+                stdout=None if verbose else subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                cwd=str(workdir.resolve()),
+                check=True,
+                text=True,
+            )
+
+../cu130env/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py:433: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['ninja', '-v', '-C', '/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtyp...type_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/build.ninja', ...],)
+kwargs = {'stdout': -1, 'stderr': -2, 'cwd': '/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dty...f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False', 'text': True}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['ninja', '-v', '-C', '/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False', '-f', '/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/build.ninja', '-j', '4']' returned non-zero exit status 1.
+
+/usr/lib/python3.12/subprocess.py:571: CalledProcessError
+
+The above exception was the direct cause of the following exception:
+
+dim = 64, page = 16, heads = 8, kv_heads = 8
+
+    @pytest.mark.parametrize("dim,page,heads,kv_heads",[(64,16,8,8),(128,32,32,8),(128,16,8,1)])
+    def test_external_paged_reference_matches_independent_oracle(dim,page,heads,kv_heads):
+        layout,table,lengths=make_metadata(3,heads,kv_heads,dim,129,page,seed=87)
+        q,k,v=make_tensors(layout,seed=88)
+&gt;       plan=FlashInferPlan(layout,table,lengths,device=q.device)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_flashinfer.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/paged_decode/competitors.py:45: in __init__
+    self.wrapper.plan(self.offsets,self.indices,self.last,layout.query_heads,
+../cu130env/lib/python3.12/site-packages/flashinfer/api_logging.py:2369: in _auto_dump_wrapper
+    return _inner(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+../cu130env/lib/python3.12/site-packages/flashinfer/decode.py:1946: in plan
+    return self._plan_impl(
+../cu130env/lib/python3.12/site-packages/flashinfer/decode.py:2441: in _plan_impl
+    self._cached_module = get_batch_decode_module(
+../cu130env/lib/python3.12/site-packages/flashinfer/decode.py:538: in get_batch_decode_module
+    mod = gen_batch_decode_module(*args).build_and_load()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../cu130env/lib/python3.12/site-packages/flashinfer/jit/core.py:357: in build_and_load
+    self.build()
+../cu130env/lib/python3.12/site-packages/flashinfer/jit/core.py:599: in build
+    run_ninja(self.build_dir, self.ninja_path, verbose)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+workdir = PosixPath('/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False')
+ninja_file = PosixPath('/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/build.ninja')
+verbose = False, max_jobs = None
+
+    def run_ninja(
+        workdir: Path,
+        ninja_file: Path,
+        verbose: bool,
+        max_jobs: Optional[int] = None,
+    ) -&gt; None:
+        workdir.mkdir(parents=True, exist_ok=True)
+        command = [
+            "ninja",
+            "-v",
+            "-C",
+            str(workdir.resolve()),
+            "-f",
+            str(ninja_file.resolve()),
+        ]
+        num_workers = max_jobs if max_jobs is not None else _get_num_workers()
+        if num_workers is not None:
+            command += ["-j", str(num_workers)]
+    
+        sys.stdout.flush()
+        sys.stderr.flush()
+        try:
+            subprocess.run(
+                command,
+                stdout=None if verbose else subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                cwd=str(workdir.resolve()),
+                check=True,
+                text=True,
+            )
+        except subprocess.CalledProcessError as e:
+            msg = "Ninja build failed."
+            if e.output:
+                msg += " Ninja output:\n" + e.output
+&gt;           raise RuntimeError(msg) from e
+E           RuntimeError: Ninja build failed. Ninja output:
+E           ninja: Entering directory `/root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False'
+E           [1/1] c++ /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode_kernel.cuda.o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode.cuda.o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode_jit_binding.cuda.o -shared -L/workspace/diagnostic/cuda130/lib64 -L/workspace/diagnostic/cuda130/lib64/stubs -lcudart -lcuda -o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False.so
+E           FAILED: [code=1] /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False.so 
+E           c++ /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode_kernel.cuda.o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode.cuda.o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False_batch_decode_jit_binding.cuda.o -shared -L/workspace/diagnostic/cuda130/lib64 -L/workspace/diagnostic/cuda130/lib64/stubs -lcudart -lcuda -o /root/.cache/flashinfer/0.7.2.post1/90a/cached_ops/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False/batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_64_head_dim_vo_64_posenc_0_use_swa_False_use_logits_cap_False.so
+E           /usr/bin/ld: cannot find -lcudart: No such file or directory
+E           collect2: error: ld returned 1 exit status
+E           ninja: build stopped: subcommand failed.
+
+../cu130env/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py:445: RuntimeError</failure></testcase></testsuite></testsuites>

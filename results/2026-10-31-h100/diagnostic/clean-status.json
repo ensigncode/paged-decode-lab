@@ -1,0 +1,26 @@
+[
+  {
+    "name": "venv",
+    "exit_code": 0
+  },
+  {
+    "name": "torch130-install",
+    "exit_code": 0
+  },
+  {
+    "name": "clean-deps",
+    "exit_code": 0
+  },
+  {
+    "name": "clean-environment",
+    "exit_code": 0
+  },
+  {
+    "name": "clean-nvcc",
+    "exit_code": 0
+  },
+  {
+    "name": "clean-pytest",
+    "exit_code": 1
+  }
+]
