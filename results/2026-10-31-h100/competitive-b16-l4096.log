@@ -1,0 +1,16 @@
+SDPA actual dispatch: {'identified_backend': 'efficient', 'observed_operators': ['aten::_efficient_attention_forward', 'aten::_scaled_dot_product_efficient_attention', 'aten::scaled_dot_product_attention'], 'method': 'CPU profiler records actual SDPA dispatch; not a GPU bandwidth profile'}
+eager cuda_serial_merge 0.474619197845459
+eager cuda_shared_merge 0.4579751968383789
+eager sdpa_auto_dense 0.7353728055953979
+eager sdpa_math_dense 3.8143407821655275
+eager sdpa_efficient_dense 0.7370775938034058
+eager flashinfer_cuda_core 0.11160640120506286
+eager flashinfer_tensor_core 0.08000960052013398
+cuda_graph cuda_serial_merge 0.4717159986495972
+cuda_graph cuda_shared_merge 0.45703279972076416
+cuda_graph sdpa_auto_dense 0.7283488035202026
+cuda_graph sdpa_math_dense 3.794388771057129
+cuda_graph sdpa_efficient_dense 0.7333888053894043
+cuda_graph flashinfer_cuda_core 0.11091600060462953
+cuda_graph flashinfer_tensor_core 0.07808719873428344
+SAVED /workspace/ensigncode-h100/evidence/competitive-b16-l4096.json
