@@ -1,0 +1,19 @@
+/usr/local/lib/python3.13/dist-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+2026-10-31 10:33:52,344 - INFO - core.py:594 - flashinfer.jit: Building JIT module batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False_kv_stride_equal; this can take several minutes on first use.
+SDPA actual dispatch: {'identified_backend': 'efficient', 'observed_operators': ['aten::_efficient_attention_forward', 'aten::_scaled_dot_product_efficient_attention', 'aten::scaled_dot_product_attention'], 'method': 'CPU profiler records actual SDPA dispatch; not a GPU bandwidth profile'}
+eager cuda_serial_merge 0.21414799690246583
+eager cuda_shared_merge 0.20698000192642213
+eager sdpa_auto_dense 0.39500640630722045
+eager sdpa_math_dense 2.115539169311523
+eager sdpa_efficient_dense 0.39341920614242554
+eager flashinfer_cuda_core 0.0917248010635376
+eager flashinfer_tensor_core 0.08674000203609467
+cuda_graph cuda_serial_merge 0.21505439281463623
+cuda_graph cuda_shared_merge 0.20857279300689696
+cuda_graph sdpa_auto_dense 0.39195760488510134
+cuda_graph sdpa_math_dense 2.1105751991271973
+cuda_graph sdpa_efficient_dense 0.3889248013496399
+cuda_graph flashinfer_cuda_core 0.0892984002828598
+cuda_graph flashinfer_tensor_core 0.08320479989051818
+SAVED /content/ensigncode-final-t4/competitive-b1.json
