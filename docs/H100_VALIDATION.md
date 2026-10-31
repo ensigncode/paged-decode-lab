@@ -63,3 +63,5 @@ A deliberate invalid-write control was detected by the accepted sanitizer.
 Full acceptance covers the published finite suite and distributions. Model
 integration, serving load, hardware-counter profiling and exhaustive correctness
 are outside this record. T4 evidence continues to describe its original hashes.
+
+The same final kernel source also passed the [fresh T4 acceptance and profiling run](../results/2026-10-31-final-t4/SUMMARY.md). This adds current T4 evidence without changing the historical records or attributing T4 counters to H100.

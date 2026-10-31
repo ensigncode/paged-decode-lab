@@ -1,0 +1,12 @@
+{
+  "b16_custom_s256_serial.trace.json": "75be033871ffef65ac2f03c91f53ff66471a2995c9d90ed0a2c859886ebeb50c",
+  "b4_custom_s256_shared.trace.json": "9df2834df5d15a2b8c10b855e4078d1bbf2ff5e666fb6145224e0c9c4ca994e2",
+  "b1_custom_s256_shared.trace.json": "445d79ccbf76e24a68c2c2fbd09f4d2a9862176bdf9c9a536d53193d308a1133",
+  "b1_flashinfer_cuda_core.trace.json": "283ea773f4936d7c32c49b9381429591b46ad3413b453f2c4a4058b38c973a0e",
+  "b1_custom_s256_serial.trace.json": "6f2820b86a375ac54d89016d89699e42de3b9a56927f8dadd305222882b11bf2",
+  "results.json": "01095b0a35e7dc5686bbf9254a3a429ee97ecd52173ee508ea7a3685dd2c513b",
+  "b16_flashinfer_cuda_core.trace.json": "d1e04dfa9e899fd6780f4d89cf2a0ad0664a80c5df73abe6d2e73a5d6f159c8d",
+  "b16_custom_s256_shared.trace.json": "17097f741bd74e66f4853ae0804c667eac2f78d79a0bff0cd8f3b6969d97bf81",
+  "b4_flashinfer_cuda_core.trace.json": "c5bc78b886089ea795ddea7e7317208c2bbde5760bf34ed46fcc03c5859143d3",
+  "b4_custom_s256_serial.trace.json": "a076c951911935ef9c67d11c7179dad0582f8de08d89b7adcf97aefaecc0dae7"
+}
