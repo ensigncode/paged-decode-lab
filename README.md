@@ -9,6 +9,11 @@ initcheck each passed all 83 custom CUDA tests with zero reported errors or
 race warnings. A further 1,000 randomized oracle cases exercised both merge
 implementations. Three fresh H100 reports compare eager and CUDA graph timings.
 
+The same final kernel also passed a fresh free-T4 run: 125 tests, four clean
+sanitizer checks and 1,000 randomized cases. Nine CUDA activity traces, real
+Nsight Compute counters and split-size experiments are now available. H100
+stage/counter profiling remains outstanding; the T4 measurements are scoped to T4.
+
 ## Explore the complete project
 
 The implementation and current documentation are on the dedicated public branch:
@@ -18,6 +23,7 @@ The implementation and current documentation are on the dedicated public branch:
 - [Kernel source](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/src/paged_decode/csrc/decode.cu)
 - [H100 acceptance evidence and retained failures](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/results/2026-10-31-h100/SUMMARY.md)
 - [H100 reproduction instructions](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/docs/H100_VALIDATION.md)
+- [Current T4 validation and profiling](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/results/2026-10-31-final-t4/SUMMARY.md)
 - [Historical T4 hardening evidence](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/results/2026-10-31-hardening/SUMMARY.md)
 - [Customer walkthrough](https://github.com/ensigncode/paged-decode-lab/blob/portfolio/paged-gqa-decode/docs/PORTFOLIO.md)
 
