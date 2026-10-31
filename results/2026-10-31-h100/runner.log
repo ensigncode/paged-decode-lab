@@ -1,0 +1,22 @@
+clone 0
+nvidia-smi 0
+nvcc 0
+pip-freeze-before 0
+dependencies 0
+pytest 0
+memcheck 1
+racecheck 0
+synccheck 0
+initcheck 0
+random-stress 0
+competitive-b1-l1024 0
+competitive-b1-l4096 0
+competitive-b1-l16384 0
+competitive-b4-l1024 0
+competitive-b4-l4096 0
+competitive-b4-l16384 0
+competitive-b16-l1024 0
+competitive-b16-l4096 0
+competitive-b16-l16384 0
+pip-freeze-after 0
+EVIDENCE_READY

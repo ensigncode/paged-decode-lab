@@ -1,0 +1,20 @@
+/workspace/diagnostic/cu130env/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+SDPA actual dispatch: {'identified_backend': 'cudnn', 'observed_operators': ['aten::_cudnn_attention_forward', 'aten::_scaled_dot_product_cudnn_attention', 'aten::scaled_dot_product_attention'], 'method': 'CPU profiler records actual SDPA dispatch; not a GPU bandwidth profile'}
+eager cuda_serial_merge 0.43808960914611816
+eager cuda_shared_merge 0.4276855945587158
+eager sdpa_auto_dense 0.572483205795288
+eager sdpa_math_dense 4.583661651611328
+eager sdpa_efficient_dense 0.7613423824310303
+eager sdpa_cudnn_dense 0.5732007980346681
+eager flashinfer_cuda_core 0.12565199732780458
+eager flashinfer_tensor_core 0.12274080514907837
+cuda_graph cuda_serial_merge 0.43643200397491455
+cuda_graph cuda_shared_merge 0.4258864164352417
+cuda_graph sdpa_auto_dense 0.5645911931991576
+cuda_graph sdpa_math_dense 4.5587358474731445
+cuda_graph sdpa_efficient_dense 0.7527271986007691
+cuda_graph sdpa_cudnn_dense 0.5646679878234864
+cuda_graph flashinfer_cuda_core 0.12543359994888306
+cuda_graph flashinfer_tensor_core 0.12197839617729186
+SAVED /workspace/diagnostic/portable-bench-b16.json

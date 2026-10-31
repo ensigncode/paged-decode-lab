@@ -1,0 +1,6 @@
+portable-pytest 0
+portable-memcheck 0
+portable-racecheck 0
+portable-synccheck 0
+portable-initcheck 0
+PORTABLE_RETEST_DONE

@@ -1,0 +1,81 @@
+========= COMPUTE-SANITIZER
+========= Program hit CUDA_ERROR_INVALID_HANDLE (error 400) due to "invalid resource handle" on CUDA API call to cuKernelGetFunction.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame:  [0x3a997] in libcudart.so.12
+=========         Host Frame: cudaLaunchKernel [0x79f19] in libcudart.so.12
+=========         Host Frame: void (anonymous namespace)::launch<c10::Half, 64>(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, int, int, CUstream_st*) [0x27e62] in ensigncode_paged_decode_v2.so
+=========         Host Frame: decode_cuda(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, long, long) [0x21746] in ensigncode_paged_decode_v2.so
+=========         Host Frame: pybind11::cpp_function::initialize<void (*&)(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, long, long), void, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, long, long, pybind11::name, pybind11::scope, pybind11::sibling, char [32]>(void (*&)(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, long, long), void (*)(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, long, long), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, char const (&) [32])::{lambda(pybind11::detail::function_call&)#3}::_FUN(pybind11::detail::function_call&) [0x1fe65] in ensigncode_paged_decode_v2.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object*, _object*) [0x1d616] in ensigncode_paged_decode_v2.so
+=========         Host Frame:  [0x18216e] in python
+=========         Host Frame: _PyObject_MakeTpCall [0x148fb4] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14a8c9] in python
+=========         Host Frame:  [0x1a3777] in python
+=========         Host Frame: _PyObject_MakeTpCall [0x14907d] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14a8c9] in python
+=========         Host Frame:  [0x1a3777] in python
+=========         Host Frame: PyObject_Call [0x14b12b] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1db2ed] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14a8c9] in python
+=========         Host Frame:  [0x1a3777] in python
+=========         Host Frame: _PyObject_MakeTpCall [0x14907d] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14a8c9] in python
+=========         Host Frame:  [0x1a3777] in python
+=========         Host Frame: _PyObject_MakeTpCall [0x14907d] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14a8c9] in python
+=========         Host Frame:  [0x1a3777] in python
+=========         Host Frame: _PyObject_MakeTpCall [0x14907d] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame: PyEval_EvalCode [0x1d55ea] in python
+=========         Host Frame:  [0x1d33db] in python
+=========         Host Frame:  [0x181fec] in python
+=========         Host Frame: PyObject_Vectorcall [0x1499b4] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x1d710e] in python
+=========         Host Frame:  [0x2bcf21] in python
+=========         Host Frame: Py_RunMain [0x2bcb51] in python
+=========         Host Frame: Py_BytesMain [0x2bc7bc] in python
+=========         Host Frame:  [0x2a1c9] in libc.so.6
+=========         Host Frame: __libc_start_main [0x2a28a] in libc.so.6
+=========         Host Frame: _start [0x257a04] in python
+=========         Host Frame: run in runtime.py:88
+=========         Host Frame: test_ragged_decode in test_cuda.py:29
+=========         Host Frame: pytest_pyfunc_call in python.py:187
+=========         Host Frame: _multicall in _execution.py:147
+=========         Host Frame: _hookexec in _manager.py:183
+=========         Host Frame: __call__ in _caller.py:197
+=========         Host Frame: runtest in python.py:1798
+=========         Host Frame: pytest_runtest_call in runner.py:184
+=========         Host Frame: _multicall in _execution.py:147
+=========         Host Frame: _hookexec in _manager.py:183
+=========         Host Frame: __call__ in _caller.py:197
+=========         Host Frame: <lambda> in runner.py:250
+=========         Host Frame: from_call in runner.py:361
+=========         Host Frame: call_and_report in runner.py:249
+=========         Host Frame: runtestprotocol in runner.py:139
+=========         Host Frame: pytest_runtest_protocol in runner.py:118
+=========         Host Frame: _multicall in _execution.py:147
+=========         Host Frame: _hookexec in _manager.py:183
+=========         Host Frame: __call__ in _caller.py:197
+=========         Host Frame: pytest_runtestloop in main.py:411
+=========         Host Frame: _multicall in _execution.py:147
+=========         Host Frame: _hookexec in _manager.py:183
+=========         Host Frame: __call__ in _caller.py:197
+=========         Host Frame: _main in main.py:387
+=========         Host Frame: wrap_session in main.py:333
+=========         Host Frame: pytest_cmdline_main in main.py:380
+=========         Host Frame: _multicall in _execution.py:147
+=========         Host Frame: _hookexec in _manager.py:183
+=========         Host Frame: __call__ in _caller.py:197
+=========         Host Frame: _main in __init__.py:262
+=========         Host Frame: _console_main in __init__.py:286
+=========         Host Frame: <module> in __main__.py:9
+=========         Host Frame: _run_code in <frozen runpy>:88
+=========         Host Frame: _run_module_as_main in <frozen runpy>:198
+========= 
+...................................................................................                                                     [100%]
+83 passed in 4.87s
+========= ERROR SUMMARY: 1 error

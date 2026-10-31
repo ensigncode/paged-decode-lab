@@ -1,0 +1,42 @@
+[
+  {
+    "name": "clone",
+    "exit_code": 0
+  },
+  {
+    "name": "deps",
+    "exit_code": 0
+  },
+  {
+    "name": "full-pytest",
+    "exit_code": 0
+  },
+  {
+    "name": "old-custom-memcheck",
+    "exit_code": 1
+  },
+  {
+    "name": "new-memcheck",
+    "exit_code": 1
+  },
+  {
+    "name": "new-racecheck",
+    "exit_code": 0
+  },
+  {
+    "name": "new-synccheck",
+    "exit_code": 0
+  },
+  {
+    "name": "new-initcheck",
+    "exit_code": 0
+  },
+  {
+    "name": "freeze",
+    "exit_code": 0
+  },
+  {
+    "name": "revision",
+    "exit_code": 0
+  }
+]

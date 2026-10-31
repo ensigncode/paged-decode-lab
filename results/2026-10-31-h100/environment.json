@@ -1,0 +1,11 @@
+{
+  "revision": "2b58e7d6f7ff1221a440cc08ace7211d2c5d4406",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "torch": "2.8.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA H100 NVL",
+  "capability": [
+    9,
+    0
+  ]
+}

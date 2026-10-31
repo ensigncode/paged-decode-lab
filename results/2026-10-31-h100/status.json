@@ -1,0 +1,107 @@
+[
+  {
+    "name": "clone",
+    "exit_code": 0,
+    "seconds": 2.6757986545562744
+  },
+  {
+    "name": "nvidia-smi",
+    "exit_code": 0,
+    "seconds": 0.1699693202972412
+  },
+  {
+    "name": "nvcc",
+    "exit_code": 0,
+    "seconds": 0.009752511978149414
+  },
+  {
+    "name": "pip-freeze-before",
+    "exit_code": 0,
+    "seconds": 0.37027907371520996
+  },
+  {
+    "name": "dependencies",
+    "exit_code": 0,
+    "seconds": 47.13800597190857
+  },
+  {
+    "name": "pytest",
+    "exit_code": 0,
+    "seconds": 79.02690696716309
+  },
+  {
+    "name": "memcheck",
+    "exit_code": 1,
+    "seconds": 5.334763526916504
+  },
+  {
+    "name": "racecheck",
+    "exit_code": 0,
+    "seconds": 21.001028060913086
+  },
+  {
+    "name": "synccheck",
+    "exit_code": 0,
+    "seconds": 3.892146348953247
+  },
+  {
+    "name": "initcheck",
+    "exit_code": 0,
+    "seconds": 4.1301186084747314
+  },
+  {
+    "name": "random-stress",
+    "exit_code": 0,
+    "seconds": 11.350088119506836
+  },
+  {
+    "name": "competitive-b1-l1024",
+    "exit_code": 0,
+    "seconds": 42.13064122200012
+  },
+  {
+    "name": "competitive-b1-l4096",
+    "exit_code": 0,
+    "seconds": 8.04194164276123
+  },
+  {
+    "name": "competitive-b1-l16384",
+    "exit_code": 0,
+    "seconds": 10.14681625366211
+  },
+  {
+    "name": "competitive-b4-l1024",
+    "exit_code": 0,
+    "seconds": 7.4408979415893555
+  },
+  {
+    "name": "competitive-b4-l4096",
+    "exit_code": 0,
+    "seconds": 8.945151567459106
+  },
+  {
+    "name": "competitive-b4-l16384",
+    "exit_code": 0,
+    "seconds": 14.459903478622437
+  },
+  {
+    "name": "competitive-b16-l1024",
+    "exit_code": 0,
+    "seconds": 9.094022989273071
+  },
+  {
+    "name": "competitive-b16-l4096",
+    "exit_code": 0,
+    "seconds": 14.516557216644287
+  },
+  {
+    "name": "competitive-b16-l16384",
+    "exit_code": 0,
+    "seconds": 37.119284868240356
+  },
+  {
+    "name": "pip-freeze-after",
+    "exit_code": 0,
+    "seconds": 0.27216482162475586
+  }
+]

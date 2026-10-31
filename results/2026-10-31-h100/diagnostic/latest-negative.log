@@ -1,0 +1,24 @@
+========= COMPUTE-SANITIZER
+========= Invalid __global__ write of size 4 bytes
+=========     at valid(float *)+0x70 in negative-control.cu:3
+=========     by thread (31,0,0) in block (0,0,0)
+=========     Access to 0x71083ea00080 is out of bounds
+=========     and is 1 bytes after the nearest allocation at 0x71083ea00000 of size 128 bytes
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========         Host Frame: main [0x8c3c] in negative-control
+========= 
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaDeviceSynchronize.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: main [0x8c68] in negative-control
+========= 
+========= CUDA API Error: Sticky error detected
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: cudaFree [0x53341] in negative-control
+=========         Host Frame: main [0x8c77] in negative-control
+========= 
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaFree.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: main [0x8c77] in negative-control
+========= 
+========= Target application returned an error
+========= ERROR SUMMARY: 4 errors
