@@ -1,5 +1,8 @@
 # Version 0.2 engineering experiment
 
+Current H100 acceptance is separately recorded in [H100 validation](H100_VALIDATION.md).
+The T4 evidence for the merge experiment remains under its historical source hash.
+
 This candidate adds an explicit shared-memory merge option to the original
 split-K paged attention implementation. The default remains `merge="serial"`.
 Historical results under `results/2026-10-31-t4/` describe the original kernel;

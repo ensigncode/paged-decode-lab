@@ -1,5 +1,9 @@
 # Benchmark protocols
 
+See the [H100 evidence](../results/2026-10-31-h100/SUMMARY.md) for the pinned
+CUDA 13.0 / PyTorch 2.11 run and its observed cuDNN automatic SDPA backend.
+Backend dispatch is measured per environment and must not be inferred from the T4 run.
+
 Version 0.2 uses `benchmarks/bench_competitive.py` (schema 2): same-paged-layout
 FlashInfer, observed SDPA dispatch, forced-backend support results, and separate
 eager and CUDA graph measurements. See [hardening methodology](HARDENING.md) and

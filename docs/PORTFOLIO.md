@@ -2,20 +2,17 @@
 
 ## Evidence-backed description
 
-> Ensigncode implemented and validated a CUDA laboratory for long-context LLM
-> attention decode. It includes paged KV addressing, grouped-query heads,
-> partitioned online softmax, and a corrected merge. Version 0.2 passed all 125 tests on a Tesla T4; NVIDIA memory and synchronization checks reported zero errors, and
-> race checking reported no errors or warnings. The repository retains historical
-> split-size experiments and new matched paged-library comparisons with raw
-> samples, correctness errors, and source hashes.
+> Ensigncode implemented and validated a CUDA laboratory for paged LLM attention
+> decode. On the documented H100 configuration, 125 tests passed, four NVIDIA
+> sanitizer tools reported zero errors across 83 custom CUDA tests, and 1,000
+> randomized cases passed against an independent FP64 oracle. Raw comparative
+> benchmarks and the unsuccessful configurations are published with source hashes.
 
-Link the [current hardening evidence](../results/2026-10-31-hardening/SUMMARY.md),
-[historical validation record](VALIDATION.md) and
-[full measured matrix](../results/2026-10-31-t4/SUMMARY.md), including regressions.
-A performance ratio needs its baseline, shape, dtype, hardware, and scope in the
-same sentence. The study uses synthetic inputs, dense PyTorch references, and a same-layout
-FlashInfer baseline. FlashInfer is faster in the completed comparisons; this
-project demonstrates implementation and measurement, not performance leadership.
+Share the [current H100 evidence](../results/2026-10-31-h100/SUMMARY.md) and
+[reproduction instructions](H100_VALIDATION.md). FlashInfer was faster in the
+measured comparisons; this is evidence of implementation, testing and experimental
+analysis, not performance leadership or production deployment experience.
+A performance ratio always needs its baseline, shape, dtype, hardware and scope.
 
 ## Ten-minute demonstration
 
