@@ -1,0 +1,24 @@
+[
+  {
+    "command": [
+      "ncu",
+      "--import",
+      "/content/ensigncode-final-t4/ncu-report.ncu-rep",
+      "--page",
+      "details",
+      "--csv"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "ncu",
+      "--import",
+      "/content/ensigncode-final-t4/ncu-report.ncu-rep",
+      "--page",
+      "raw",
+      "--csv"
+    ],
+    "exit_code": 0
+  }
+]

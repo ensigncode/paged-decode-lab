@@ -1,0 +1,78 @@
+[
+  {
+    "name": "clone",
+    "exit_code": 0
+  },
+  {
+    "name": "checkout",
+    "exit_code": 0
+  },
+  {
+    "name": "dependencies",
+    "exit_code": 0
+  },
+  {
+    "name": "nvidia-smi",
+    "exit_code": 0
+  },
+  {
+    "name": "nvcc",
+    "exit_code": 0
+  },
+  {
+    "name": "sanitizer-version",
+    "exit_code": 0
+  },
+  {
+    "name": "environment",
+    "exit_code": 0
+  },
+  {
+    "name": "pytest",
+    "exit_code": 0
+  },
+  {
+    "name": "memcheck",
+    "exit_code": 0
+  },
+  {
+    "name": "racecheck",
+    "exit_code": 0
+  },
+  {
+    "name": "synccheck",
+    "exit_code": 0
+  },
+  {
+    "name": "initcheck",
+    "exit_code": 0
+  },
+  {
+    "name": "random-stress",
+    "exit_code": 0
+  },
+  {
+    "name": "competitive-b1",
+    "exit_code": 0
+  },
+  {
+    "name": "competitive-b4",
+    "exit_code": 0
+  },
+  {
+    "name": "freeze",
+    "exit_code": 0
+  },
+  {
+    "name": "profile-matrix",
+    "exit_code": 0
+  },
+  {
+    "name": "ncu-version",
+    "exit_code": 0
+  },
+  {
+    "name": "ncu",
+    "exit_code": 0
+  }
+]

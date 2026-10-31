@@ -1,0 +1,7 @@
+==PROF== Connected to process 6384 (/usr/bin/python3.13)
+==PROF== Connected to process 6398 (/opt/bin/.nvidia/nvidia-smi)
+==PROF== Disconnected from process 6398
+==PROF== Profiling "partial_decode" - 0 (1/2): 0%....50%....100% - 19 passes
+==PROF== Profiling "merge_decode" - 1 (2/2): 0%....50%....100% - 19 passes
+==PROF== Disconnected from process 6384
+==PROF== Report: /content/ensigncode-final-t4/ncu-report.ncu-rep
