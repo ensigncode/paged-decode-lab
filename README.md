@@ -29,8 +29,11 @@ production-serving claim.
 
 Historical [T4 version 0.2 evidence](results/2026-10-31-hardening/SUMMARY.md)
 (125 tests, ten competitive cases) and the [42-case version 0.1 sweep](results/2026-10-31-t4/SUMMARY.md)
-are retained under their tested source revisions. The latest header-only build
-portability change was tested on H100; historical T4 hashes remain historical.
+are retained under their tested source revisions. The final published kernel,
+including the header change, also passed a [fresh free-T4 acceptance run](results/2026-10-31-final-t4/SUMMARY.md):
+125 tests, all four sanitizers and 1,000 randomized cases. That follow-up includes
+nine CUDA activity traces, real Nsight Compute counters and split-size exploration.
+Historical evidence retains its original hashes.
 
 ## Why this problem
 
@@ -61,8 +64,8 @@ generate text. It provides a concrete problem to inspect, measure, and optimize.
 
 This version uses scalar FMA and warp shuffles. It has no Tensor Cores, async
 copies, quantized KV, or inter-head KV reuse. GQA heads sharing one KV head still
-issue separate reads. The measured FlashInfer gap is published above. Further optimization needs
-profiling and new measurements.
+issue separate reads. The measured FlashInfer gap is published above. T4 profiling attributes most device time to the attention partial stage.
+H100 stage/counter profiling and new optimization measurements remain future work.
 
 ## Setup
 
@@ -134,7 +137,7 @@ is not supported.
 - [Benchmark protocol and fairness](docs/BENCHMARKING.md)
 - [Validation evidence](docs/VALIDATION.md)
 - [Customer walkthrough](docs/PORTFOLIO.md)
-- [Profiling hypotheses](docs/PROFILING.md)
+- [Profiling findings and next experiments](docs/PROFILING.md)
 - [Contributing](CONTRIBUTING.md)
 
 Core kernel: `src/paged_decode/csrc/decode.cu`. Replay API: `runtime.py`.
