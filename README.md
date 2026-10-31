@@ -7,29 +7,30 @@ the single-token decode step of an LLM. It follows fragmented KV pages directly,
 keeps an online softmax in registers, and merges independent context partitions
 without materializing an attention-score tensor.
 
-**Version 0.2 validated on a real NVIDIA Tesla T4; experimental operator study.**
-All **125 tests passed**: 39 CPU/reference checks, 83 custom CUDA tests, and
-3 external-library comparisons. Each of NVIDIA memcheck, racecheck, synccheck,
-and initcheck ran all 83 custom CUDA tests with zero reported errors; racecheck
-also reported zero warnings.
+**H100 validation complete for the documented CUDA 13.0 / PyTorch 2.11 configuration.**
+On a real NVIDIA H100 PCIe, **125 tests passed with no skips**. All four NVIDIA
+sanitizer tools passed all **83 custom CUDA tests** with zero errors; racecheck
+also reported zero warnings. A further **1,000 randomized cases × both merge
+implementations** passed against an independent FP64 oracle.
 
-The new **10-case competitive matrix** covers MHA, GQA, MQA, batches 1/4,
-contexts up to 16K, and separate eager/CUDA-graph measurements. FlashInfer uses
-the same paged KV tensors. PyTorch profiler identified automatic SDPA as the
-efficient backend. Forced unsupported backends are recorded explicitly.
-See the [current results and raw evidence](results/2026-10-31-hardening/SUMMARY.md)
-and [reproduction details](docs/HARDENING.md).
+The [H100 results and raw evidence](results/2026-10-31-h100/SUMMARY.md) include
+three fresh eager/CUDA-graph benchmark reports, source hashes, error-detection
+controls, and the full compatibility investigation. Automatic SDPA selected
+cuDNN on the validated H100 stack. Earlier CUDA 12.8 runs reported a CUDA API
+handle error; those failures remain visible and are excluded from clean acceptance.
+See [H100 reproduction](docs/H100_VALIDATION.md).
 
-**Measured outcome:** FlashInfer CUDA-core decode was **1.22–2.88× faster** than
-our serial custom kernel in these eager measurements. The optional shared merge
-had mixed results; the default remains serial. Custom output is FP32, while
-FlashInfer output is FP16. This portfolio demonstrates CUDA implementation,
-numerical testing, and honest experimental analysis; it makes no performance
-leadership or production-serving claim.
+**Measured outcome:** FlashInfer CUDA-core decode was **1.61–4.53× faster** than
+our serial custom kernel in the three fresh H100 eager comparisons. Custom
+output is FP32; FlashInfer output is FP16. The shared merge improved these three
+shapes but remains optional because earlier T4 experiments showed regressions.
+This is an experimental attention operator, with no performance-leadership or
+production-serving claim.
 
-The [historical 42-case split-size sweep](results/2026-10-31-t4/SUMMARY.md)
-is retained with its [version 0.1 validation record](docs/VALIDATION.md).
-Its dense-reference speedups do not establish an advantage over a tuned paged engine.
+Historical [T4 version 0.2 evidence](results/2026-10-31-hardening/SUMMARY.md)
+(125 tests, ten competitive cases) and the [42-case version 0.1 sweep](results/2026-10-31-t4/SUMMARY.md)
+are retained under their tested source revisions. The latest header-only build
+portability change was tested on H100; historical T4 hashes remain historical.
 
 ## Why this problem
 
@@ -106,7 +107,7 @@ bash tools/sweep.sh results/my-gpu
 
 All paths must pass a numerical comparison before a performance report is written.
 Reports never silently overwrite existing files. The sweep runs 36 configurations.
-No GPU rentals, paid services, or hosted CI are configured.
+No automatic GPU rentals, purchases or hosted CI are configured. The H100 evidence came from a user-funded rental that was stopped after export.
 
 ## API
 
@@ -146,7 +147,7 @@ dropout, backward pass, tensor parallelism, or serving-engine integration is
 implemented. The cache is read-only during an invocation. The query is assumed
 to be at the end of the live cache, so every live token is visible.
 
-The T4 correctness and sanitizer acceptance checks are complete. Next work is
+Recorded T4 acceptance and the pinned H100 acceptance checks are complete. Next work is
 hardware-counter profiling and broader hardware/workload coverage to decide between
 GQA reuse, hierarchical merge, tiled attention, and a compact ragged work grid.
 
