@@ -50,24 +50,18 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
 python -m pytest -q tests/test_oracle.py tests/test_metrics.py
-
 ```
 
 ### 2. GPU Kernel Compilation & Full Acceptance Suite
-
 Requires Linux, an NVIDIA GPU, C++17 compiler, CUDA toolkit (`nvcc`), and CUDA-enabled PyTorch (`>=2.6,<3`):
-
 ```bash
 python -m pip install ninja
 python -m pytest -q tests/test_cuda.py
 bash tools/gpu_acceptance.sh
-
 ```
-
 *(Note: Importing `paged_decode` does not trigger `torch` imports or JIT compilation; kernel compilation occurs explicitly during `DecodePlan` initialization outside timed regions.)*
 
 ### 3. Run Single Workload or 36-Configuration Hardware Sweep
-
 ```bash
 # Single GQA decode benchmark (Llama-3-8B head geometry, 4K context)
 python benchmarks/bench_decode.py \
@@ -79,7 +73,6 @@ python tools/report.py results/local-4k.json
 
 # Full 36-configuration hardware sweep
 bash tools/sweep.sh results/my-gpu
-
 ```
 
 ---
@@ -97,23 +90,20 @@ q, k, v = make_tensors(layout, device="cuda:0")
 # Explicit plan compilation & workspace preallocation (CUDA-graph safe)
 plan = DecodePlan(layout, pages, lengths, device="cuda:0", split_tokens=256)
 output = plan.run(q, k, v)  # Returns FP32 tensor [batch, query_heads, head_dim]
-
 ```
 
 ---
 
 ## Evidence, Raw Traces & Documentation
 
-* **H100 Raw Evidence & Reports:** [results/2026-10-31-h100/SUMMARY.md](https://www.google.com/search?q=results/2026-10-31-h100/SUMMARY.md) · [H100 Reproduction Guide](https://www.google.com/search?q=docs/H100_VALIDATION.md)
-* **T4 Acceptance, Nsight Compute & Traces:** [Final T4 Run](https://www.google.com/search?q=results/2026-10-31-final-t4/SUMMARY.md) · [Hardening v0.2](https://www.google.com/search?q=results/2026-10-31-hardening/SUMMARY.md) · [Sweep v0.1](https://www.google.com/search?q=results/2026-10-31-t4/SUMMARY.md)
+* **H100 Raw Evidence & Reports:** [results/2026-10-31-h100/SUMMARY.md](results/2026-10-31-h100/SUMMARY.md) · [H100 Reproduction Guide](docs/H100_VALIDATION.md)
+* **T4 Acceptance, Nsight Compute & Traces:** [Final T4 Run](results/2026-10-31-final-t4/SUMMARY.md) · [Hardening v0.2](results/2026-10-31-hardening/SUMMARY.md) · [Sweep v0.1](results/2026-10-31-t4/SUMMARY.md)
 * **Architecture & Methodology:**
-* [Kernel Design & Split-K Merge Equations](https://www.google.com/search?q=docs/DESIGN.md)
-* [Benchmark Protocol & Fairness Controls](https://www.google.com/search?q=docs/BENCHMARKING.md)
-* [Validation & Sanitizer Methodology](https://www.google.com/search?q=docs/VALIDATION.md)
-* [Customer Engineering Walkthrough](https://www.google.com/search?q=docs/PORTFOLIO.md)
-* [Profiling Findings & Optimization Roadmap](https://www.google.com/search?q=docs/PROFILING.md)
-
-
+  * [Kernel Design & Split-K Merge Equations](docs/DESIGN.md)
+  * [Benchmark Protocol & Fairness Controls](docs/BENCHMARKING.md)
+  * [Validation & Sanitizer Methodology](docs/VALIDATION.md)
+  * [Customer Engineering Walkthrough](docs/PORTFOLIO.md)
+  * [Profiling Findings & Optimization Roadmap](docs/PROFILING.md)
 
 ---
 
@@ -125,7 +115,7 @@ This public repository serves as our open-source verification lab. For enterpris
 * **Quantized KV-Cache & Low-Precision Kernels:** Custom `FP8` (`E4M3`/`E5M2`) and `FP4` dequantization fused directly into attention decode and GEMM epilogues.
 * **5-Day Nsight GPU Bottleneck Audit:** Deep kernel-level profiling (`Nsight Systems` + `Nsight Compute` warp-stall, memory-coalescing, and roofline diagnostics) with a fixed-bid implementation roadmap.
 
-**Contact our GPU Engineering Team:** [ensigncode.com](https://ensigncode.com) · [Customer Walkthrough](https://www.google.com/search?q=docs/PORTFOLIO.md)
+**Contact our GPU Engineering Team:** [ensigncode.com](https://ensigncode.com) · [Customer Walkthrough](docs/PORTFOLIO.md)
 
 ---
 
@@ -136,4 +126,4 @@ This public repository serves as our open-source verification lab. For enterpris
 * Kwon et al., [PagedAttention](https://arxiv.org/abs/2309.06180)
 * Ainslie et al., [Grouped-query attention](https://arxiv.org/abs/2305.13245)
 
-Released under the [MIT License](https://www.google.com/search?q=LICENSE).
+Released under the [MIT License](LICENSE).
