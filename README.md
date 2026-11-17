@@ -11,20 +11,22 @@ A clean-room CUDA C++ implementation of **split-K paged grouped-query attention 
 
 ## Verification & Hardware Telemetry Summary
 
-Unlike unverified demo kernels, every build in this repository passes strict hardware-level memory/race sanitization and numerical oracle gates before emitting performance telemetry:
+The table summarizes the published H100 and T4 validation runs. See the evidence reports below for tested configurations, source hashes, and raw logs.
 
 | Verification Gate | Environment / Scope | Measured Status |
 | :--- | :--- | :--- |
-| **NVIDIA H100 PCIe Validation** | CUDA 13.0.88 · PyTorch 2.11.0+cu130 · Driver 580.82.07 | **125 / 125 tests passed** (0 skips) |
+| **NVIDIA H100 PCIe Validation** | CUDA 13.0.88 · PyTorch 2.11.0+cu130 · Driver 595.91.07 | **125 / 125 tests passed** (0 skips) |
 | **NVIDIA Sanitizer Suite** | `memcheck`, `racecheck`, `initcheck`, `synccheck` across 83 CUDA tests | **0 errors · 0 racecheck warnings** |
-| **Numerical Parity Gate** | 1,000 randomized ragged/shared-page cases × both merge kernels | **100% pass** vs. independent FP64 NumPy oracle |
-| **CUDA Graph Replay** | Preallocated workspace on caller's CUDA stream | **Zero-allocation replay** outside graph capture |
-| **T4 Profiling & Trace Suite** | 36-config sweep + 9 CUDA activity traces + Nsight Compute (`ncu`) | **Complete** (split-size & stage breakdown) |
+| **Numerical Parity Gate** | 1,000 randomized ragged/shared-page cases × both merge kernels | **All 1,000 cases passed for both merges** vs. independent FP64 NumPy oracle |
+| **CUDA Graph Replay** | Preallocated workspace on caller's CUDA stream | **Replay validated** with preallocated workspace |
+| **T4 Profiling & Trace Suite** | 33 benchmark variants + 9 CUDA activity traces + Nsight Compute (`ncu`) | **Complete** (split-size & stage breakdown) |
+
+Earlier CUDA 12.8 / PyTorch 2.8 runs reported a memcheck API handle error. The [H100 evidence report](results/2026-10-31-h100/SUMMARY.md) preserves those failures. The clean H100 acceptance applies to CUDA 13.0 / PyTorch 2.11. Published stage and hardware-counter profiling covers T4.
 
 ### Baseline Positioning (Transparent Engineering)
 * **What this public baseline measures:** A scalar-FMA, warp-shuffle CUDA C++ reference kernel (`FP32` accumulation/output) validated on NVIDIA H100 PCIe and Tesla T4.
-* **Comparison against FlashInfer:** In H100 eager comparisons, FlashInfer's Tensor-Core/vectorized CUDA decode is **1.61–4.53× faster** than this scalar baseline (`FP16` vs. `FP32` output).
-* **Why we publish it:** This repository demonstrates our **kernel engineering discipline, sanitizer-clean C++ bindings, CUDA Graph compatibility, and reproducible benchmarking methodology**. For production engagements, we extend these architectures with **Hopper TMA (`cp.async.bulk`), Tensor Core (`wgmma`) tiling, inter-head GQA KV reuse, and FP8/FP4 quantized KV caches**.
+* **Comparison against FlashInfer:** Across three H100 eager workloads, FlashInfer's **CUDA-core** path was **1.61–4.53× faster** than the custom serial merge. FlashInfer returned `FP16` output and the custom kernel returned `FP32` output.
+* **Why we publish it:** This repository demonstrates our **kernel engineering discipline, sanitizer-clean C++ bindings, CUDA Graph compatibility, and reproducible benchmarking methodology**. The published H100 and T4 results cover the scalar attention operator. Production engineering options are described below.
 
 ---
 
@@ -89,8 +91,11 @@ q, k, v = make_tensors(layout, device="cuda:0")
 
 # Explicit plan compilation & workspace preallocation (CUDA-graph safe)
 plan = DecodePlan(layout, pages, lengths, device="cuda:0", split_tokens=256)
-output = plan.run(q, k, v)  # Returns FP32 tensor [batch, query_heads, head_dim]
+output = plan.run(q, k, v)  # Borrowed FP32 output [batch, query_heads, head_dim]
+# Clone output if it needs to survive a subsequent run.
 ```
+
+Plan metadata is fixed. Rebuild the plan when sequence lengths or page assignments change. Use separate plans for concurrent streams.
 
 ---
 
@@ -109,9 +114,9 @@ output = plan.run(q, k, v)  # Returns FP32 tensor [batch, query_heads, head_dim]
 
 ## Commercial H200 & Production Kernel Engineering
 
-This public repository serves as our open-source verification lab. For enterprise AI teams running production inference clusters on **NVIDIA H100, H200, or Blackwell B200**, **Ensigncode Software** delivers custom kernel and runtime engineering under NDA:
+This public repository serves as our open-source verification lab. For enterprise AI teams running production inference clusters on **NVIDIA H100, H200, or Blackwell B200**, **Ensigncode Software** offers custom kernel and runtime engineering under NDA. The scope can include the following options.
 
-* **Hopper / H200 HBM3e Optimization:** Warp-specialized kernels utilizing Tensor Memory Accelerator (`TMA`), asynchronous pipelines, and inter-head GQA KV reuse to saturate H200's `4.8 TB/s` memory bandwidth.
+* **Hopper / H200 HBM3e Optimization:** Evaluate warp specialization, Tensor Memory Accelerator (`TMA`), asynchronous pipelines, and inter-head GQA KV reuse. Target higher effective memory bandwidth and measure gains on the customer’s workload.
 * **Quantized KV-Cache & Low-Precision Kernels:** Custom `FP8` (`E4M3`/`E5M2`) and `FP4` dequantization fused directly into attention decode and GEMM epilogues.
 * **5-Day Nsight GPU Bottleneck Audit:** Deep kernel-level profiling (`Nsight Systems` + `Nsight Compute` warp-stall, memory-coalescing, and roofline diagnostics) with a fixed-bid implementation roadmap.
 
